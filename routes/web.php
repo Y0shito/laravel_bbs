@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,7 @@ Route::get('/dashboard', function () {
 require __DIR__ . '/auth.php';
 
 Route::get('index', [IndexController::class, 'index'])->name('index');
+
+// Twitterログイン
+Route::get('twitter-login', [UserController::class, 'login'])->name('twitter-login');
+Route::get('callback', [UserController::class, 'callback']);

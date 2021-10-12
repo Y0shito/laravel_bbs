@@ -26,9 +26,9 @@
                 <a class="mr-5 hover:text-gray-900">Fourth Link</a>
             </nav>
             @guest
-                <button
+                <a href="{{ route('twitter-login') }}"
                     class="inline-flex items-center bg-blue-400 border-0 py-1 px-3 focus:outline-none hover:bg-blue-300 rounded text-white mt-4 md:mt-0">twitterログイン
-                </button>
+                </a>
             @endguest
         </div>
     </header>
