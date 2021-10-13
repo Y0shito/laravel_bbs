@@ -20,16 +20,22 @@
                 <span class="ml-3 text-xl">BBS</span>
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a class="mr-5 hover:text-gray-900">First Link</a>
-                <a class="mr-5 hover:text-gray-900">Second Link</a>
-                <a class="mr-5 hover:text-gray-900">Third Link</a>
-                <a class="mr-5 hover:text-gray-900">Fourth Link</a>
+                <a class="mr-5 hover:text-gray-900">検索</a>
+                @auth
+                    <a href="{{ route('twitter-logout') }}" class="mr-5 hover:text-gray-900">ログアウト</a>
+                    <a class="mr-5 hover:text-gray-900">記事作成</a>
+                @endauth
             </nav>
             @guest
                 <a href="{{ route('twitter-login') }}"
                     class="inline-flex items-center bg-blue-400 border-0 py-1 px-3 focus:outline-none hover:bg-blue-300 rounded text-white mt-4 md:mt-0">twitterログイン
                 </a>
             @endguest
+            @auth
+                <a
+                    class="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-300 rounded text-white mt-4 md:mt-0">マイページ
+                </a>
+            @endauth
         </div>
     </header>
 

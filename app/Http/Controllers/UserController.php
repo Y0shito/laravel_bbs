@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function callback()
     {
-        $user = Socialite::driver('Twitter')->user();
+        $user = Socialite::driver('twitter')->user();
 
         Auth::login(
             User::firstOrCreate([
@@ -27,6 +27,12 @@ class UserController extends Controller
             ]),
             true
         );
-        return redirect()->name('index');
+        return redirect()->route('index');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('index');
     }
 }

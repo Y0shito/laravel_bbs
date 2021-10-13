@@ -30,3 +30,4 @@ Route::get('index', [IndexController::class, 'index'])->name('index');
 // Twitterログイン
 Route::get('twitter-login', [UserController::class, 'login'])->name('twitter-login');
 Route::get('callback', [UserController::class, 'callback']);
+Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-logout');
