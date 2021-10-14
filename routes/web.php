@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleCreateController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\UserController;
 
@@ -25,9 +26,13 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('index', [IndexController::class, 'index'])->name('index');
+Route::get('index', [IndexController::class, 'showIndex'])->name('index');
 
 // Twitterログイン
 Route::get('twitter-login', [UserController::class, 'login'])->name('twitter-login');
 Route::get('callback', [UserController::class, 'callback']);
 Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-logout');
+
+Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
+    route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
+});
