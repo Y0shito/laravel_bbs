@@ -35,4 +35,5 @@ Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-l
 
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
+    route::post('preview', [ArticleCreateController::class, 'toPreview'])->name('preview');
 });
