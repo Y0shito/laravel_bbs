@@ -29,6 +29,9 @@ class UserController extends Controller
         );
         return redirect()->route('index');
     }
+    //トランザクション張っておく
+    //auth::login内に欲しいカラムいれればもっと登録出来る？（twitterのアバターなど）
+    //ただこのメソッドだと、twitter側でアバター変わっている場合、再ログイン時更新されず古いアバターのままになる
 
     public function logout()
     {
