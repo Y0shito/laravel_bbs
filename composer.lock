@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "615c5be195a4c013589e9a3cd29db57c",
+    "content-hash": "8a4c264808870ca86c866ef5e9ffb5da",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8388,6 +8388,56 @@
                 }
             ],
             "time": "2020-09-28T06:39:44+00:00"
+        },
+        {
+            "name": "suin/php-cs-fixer-rules",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/suin/php-cs-fixer-rules.git",
+                "reference": "8f3cf26c42de7534f8292b939e8bec96854fbaec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/suin/php-cs-fixer-rules/zipball/8f3cf26c42de7534f8292b939e8bec96854fbaec",
+                "reference": "8f3cf26c42de7534f8292b939e8bec96854fbaec",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "conflict": {
+                "friendsofphp/php-cs-fixer": "<2.13"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "suin",
+                    "email": "suinyeze@gmail.com",
+                    "homepage": "https://github.com/suin",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Rule set for PHP-CS-Fixer mainly targeting PHP 7.1 or higher.",
+            "homepage": "https://github.com/suin/php",
+            "keywords": [
+                "php-cs-fixer",
+                "rules"
+            ],
+            "support": {
+                "issues": "https://github.com/suin/php/issues",
+                "source": "https://github.com/suin/php-cs-fixer-rules/tree/2.2.1"
+            },
+            "time": "2020-12-04T01:55:42+00:00"
         },
         {
             "name": "symfony/filesystem",
