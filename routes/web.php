@@ -38,4 +38,5 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
     route::post('preview', [ArticleCreateController::class, 'toPreview'])->name('preview');
     route::get('preview', [ArticlePreviewController::class, 'showArticlePreview']);
+    route::post('completion', [ArticlePreviewController::class, 'completion'])->name('completion');
 });
