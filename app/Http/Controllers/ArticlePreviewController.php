@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PublicStatus;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
@@ -16,27 +17,24 @@ class ArticlePreviewController extends Controller
 
     public function completion(Request $request)
     {
-        DB::beginTransaction(); //トランザクションの開始
+        DB::beginTransaction();
         try {
-            $article = Article::updateOrCreate(
-                ['id' => session('article_id')],
+            $article = Article::Create(
                 [
+                    'user_id' => Auth::id(),
                     'title' => session('title'),
                     'body' => session('body'),
-                    'author_id' => Auth::id(),
-                    // 'open' => PublicStatus::OPEN,
-                    'category' => $request->category,
+                    'public_status' => PublicStatus::OPEN,
                 ]
             );
-
-            DB::commit(); //データの挿入
-            $request->session()->forget(['title', 'body', 'article_id']);
-            return redirect('/mypage');
-        } catch (\Exception $e) { //例外発生時
-            // 本来はここに例外時の処理を書く
-            DB::rollback(); //適用前に戻す
+            DB::commit();
+            $request->session()->forget(['title', 'body']);
+            return redirect()->route('index');
+        } catch (\Exception $e) {
+            DB::rollback();
             $error = $e->getMessage();
             dd($error);
+            return back();
         }
     }
 }
