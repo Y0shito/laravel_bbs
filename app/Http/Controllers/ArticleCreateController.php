@@ -21,7 +21,7 @@ class ArticleCreateController extends Controller
 
         session(compact('title', 'body'));
 
-        dd(session('title'), session('body'));
+        // dd(session('title'), session('body'));
 
         return redirect()->route('preview');
     }

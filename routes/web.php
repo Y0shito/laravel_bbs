@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleCreateController;
+use App\Http\Controllers\ArticlePreviewController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\UserController;
 
@@ -36,4 +37,5 @@ Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-l
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
     route::post('preview', [ArticleCreateController::class, 'toPreview'])->name('preview');
+    route::get('preview', [ArticlePreviewController::class, 'showArticlePreview']);
 });
