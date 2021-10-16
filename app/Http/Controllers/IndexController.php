@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
 
 class IndexController extends Controller
 {
     public function showIndex()
     {
-        return view('index');
+        $articles = Article::openArticles()->with('user')->paginate(10);
+        return view('index', compact('articles'));
     }
 }
