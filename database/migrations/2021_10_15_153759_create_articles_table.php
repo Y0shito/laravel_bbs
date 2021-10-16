@@ -15,7 +15,7 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->bigInteger('user_id')->unsigned();
             $table->text('title', 30);
             $table->text('body', 3000);
             $table->integer('public_status');
@@ -24,6 +24,8 @@ class CreateArticlesTable extends Migration
             $table->integer('bookmarks')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
