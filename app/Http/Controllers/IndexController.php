@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -9,7 +11,7 @@ class IndexController extends Controller
 {
     public function showIndex()
     {
-        $articles = Article::openArticles()->with('user')->paginate(10);
+        $articles = Article::with('user')->paginate(10);
         return view('index', compact('articles'));
     }
 }
