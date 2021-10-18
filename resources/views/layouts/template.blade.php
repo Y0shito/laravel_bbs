@@ -32,7 +32,7 @@
                 </a>
             @endguest
             @auth
-                <a
+                <a href="{{ route('mypage') }}"
                     class="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-300 rounded text-white mt-4 md:mt-0">マイページ
                 </a>
             @endauth
