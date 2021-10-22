@@ -15,3 +15,4 @@ yarn-error.log
 /.vscode
 memo.txt
 .php-cs-fixer.cache
+tailwindcss_memo.md

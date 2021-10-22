@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleCreateController;
@@ -42,6 +44,11 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     route::post('completion', [ArticlePreviewController::class, 'completion'])->name('completion');
 });
 
-Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function(){
+Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function () {
     route::get('/', [MypageController::class, 'showMypage'])->name('mypage');
+
+    route::post('status-open', [MypageController::class, 'statusOpen'])->name('articleOpen');
+    route::post('status-close', [MypageController::class, 'statusClose'])->name('articleClose');
+    route::post('article-edit', [MypageController::class, ''])->name('articleEdit');
+    route::post('article-delete', [MypageController::class, 'articleDelete'])->name('articleDelete');
 });
