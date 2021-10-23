@@ -37,4 +37,27 @@ class ArticlePreviewController extends Controller
             return back();
         }
     }
+
+    public function draft(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $article = Article::Create(
+                [
+                    'user_id' => Auth::id(),
+                    'title' => session('title'),
+                    'body' => session('body'),
+                    'public_status' => PublicStatus::CLOSE,
+                ]
+            );
+            DB::commit();
+            $request->session()->forget(['title', 'body']);
+            return redirect()->route('mypage');
+        } catch (\Exception $e) {
+            DB::rollback();
+            $error = $e->getMessage();
+            dd($error);
+            return back();
+        }
+    }
 }
