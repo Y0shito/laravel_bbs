@@ -3,7 +3,7 @@
 @section('title', '記事作成')
 
 @section('content')
-    <form method="POST">
+    <form method="POST" action="{{ route('preview') }}">
         @csrf
         <section class="text-gray-600 body-font relative">
             <div class="container px-5 py-24 mx-auto">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="p-2 w-full flex align-center">
-                            <button formaction="{{ route('preview') }}"
+                            <button
                                 class="mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">プレビュー</button>
                         </div>
                     </div>
