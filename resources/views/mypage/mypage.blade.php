@@ -50,13 +50,14 @@
                             <form method="POST">
                                 @csrf
                                 @if ($article->public_status === \App\Enums\Publicstatus::OPEN)
-                                    <button value="{{ $article->id }}" name="id" formaction="{{ route('articleClose') }}"
+                                    <button value="{{ $article->id }}" name="id"
+                                        formaction="{{ route('articleClose') }}"
                                         class="text-white bg-gray-600 hover:bg-gray-400 border-0 px-3 py-1 mt-1 rounded">非公開にする</button>
                                 @else
                                     <button value="{{ $article->id }}" name="id" formaction="{{ route('articleOpen') }}"
                                         class="text-white bg-green-400 hover:bg-green-200 border-0 px-3 py-1 mt-1 rounded">公開する</button>
                                 @endif
-                                <button value="{{ $article->id }}" name="id" formaction="{{ route('articleEdit') }}"
+                                <button value="{{ $article->id }}" name="id" formaction="{{ route('edit') }}"
                                     class="text-white bg-blue-500 hover:bg-blue-400 border-0 px-3 py-1 mt-1 rounded">編集</button>
                                 <button value="{{ $article->id }}" name="id" formaction="{{ route('articleDelete') }}"
                                     class="text-white bg-red-600 hover:bg-red-400 border-0 px-3 py-1 mt-1 rounded">削除</button>
@@ -77,5 +78,6 @@
                 @endforeach
             </div>
         </div>
+        <a href="{{ route('edit') }}">edit</a>
     </section>
 @endsection
