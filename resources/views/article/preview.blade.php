@@ -6,12 +6,12 @@
         <form method="POST">
             @csrf
             <div class="container px-5 py-24 mx-auto">
-                <div class="text-center mb-20">
-                    <h1 class="sm:text-3xl text-2xl font-medium text-center title-font text-gray-900 mb-4">
+                <div class="text-left mb-20">
+                    <h1 class="sm:text-3xl text-2xl font-medium text-center title-font text-gray-900 mx-auto mb-4">
                         {{ session('title') }}
                     </h1>
                     <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">
-                        {{ session('body') }}
+                        {!! nl2br(e(session('body'))) !!}
                     </p>
                 </div>
                 <div class="p-2 w-full flex align-center">
