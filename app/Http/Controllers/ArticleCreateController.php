@@ -20,7 +20,7 @@ class ArticleCreateController extends Controller
         return view('article.create');
     }
 
-    public function toPreview(ArticleRequest $request)
+    public function previewFromCreate(ArticleRequest $request)
     {
         $title = Spaceremoval::spaceRemoval($request->title);
         $body = Spaceremoval::spaceRemoval($request->body);
