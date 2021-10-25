@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class ArticlePreviewController extends Controller
 {
@@ -30,7 +31,7 @@ class ArticlePreviewController extends Controller
             DB::commit();
             $request->session()->forget(['title', 'body']);
             return redirect()->route('index');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
             dd($error);
@@ -53,7 +54,7 @@ class ArticlePreviewController extends Controller
             DB::commit();
             $request->session()->forget(['title', 'body']);
             return redirect()->route('mypage');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
             dd($error);
