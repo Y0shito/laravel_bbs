@@ -40,9 +40,11 @@ Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-l
 
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
-    route::post('preview', [ArticleCreateController::class, 'toPreview'])->name('preview');
     route::get('preview', [ArticlePreviewController::class, 'showArticlePreview']);
-    route::get('edit', [ArticleEditController::class, 'showArticleEdit'])->name('edit');
+    route::post('preview', [ArticleCreateController::class, 'previewFromCreate'])->name('preview');
+    route::get('edit', [ArticleEditController::class, 'showArticleEdit']);
+    route::post('edit', [ArticleEditController::class, 'showArticleEdit'])->name('edit');
+    route::post('edit-preview', [ArticleEditController::class, 'previewFromEdit'])->name('editPreview');
     route::post('draft', [ArticlePreviewController::class, 'draft'])->name('draft');
     route::post('completion', [ArticlePreviewController::class, 'completion'])->name('completion');
 });
