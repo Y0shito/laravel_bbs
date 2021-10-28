@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Traits\Spaceremoval;
-use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
 
 class ArticleEditController extends Controller

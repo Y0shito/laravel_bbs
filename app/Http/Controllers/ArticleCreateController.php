@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Enums\PublicStatus;
 use App\Http\Requests\ArticleRequest;
 use App\Traits\Spaceremoval;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use App\Models\Article;
 
 class ArticleCreateController extends Controller
 {

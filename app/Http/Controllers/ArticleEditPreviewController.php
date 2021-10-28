@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Enums\PublicStatus;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Article;
-use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ArticleEditPreviewController extends Controller
 {

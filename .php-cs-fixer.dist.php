@@ -39,5 +39,8 @@ return $config
         ],
         'not_operator_with_successor_space' => true,
         'blank_line_after_namespace' => true,
+        'single_quote' => true,
+        'no_unused_imports' => true,
+        'ordered_imports' => true,
     ])
     ->setFinder($finder);
