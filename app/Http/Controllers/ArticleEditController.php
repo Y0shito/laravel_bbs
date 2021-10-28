@@ -15,7 +15,7 @@ class ArticleEditController extends Controller
 
     public function showArticleEdit(Request $request)
     {
-        $article = Article::find($request->id);
+        $article = Article::withoutGlobalScope('public_status')->find($request->id);
         return view('article.edit', compact('article'));
     }
 
@@ -23,9 +23,10 @@ class ArticleEditController extends Controller
     {
         $title = Spaceremoval::spaceRemoval($request->title);
         $body = Spaceremoval::spaceRemoval($request->body);
+        $id = $request->id;
 
-        session(compact('title', 'body'));
+        session(compact('title', 'body', 'id'));
 
-        return redirect()->route('preview');
+        return redirect()->route('editPreview');
     }
 }

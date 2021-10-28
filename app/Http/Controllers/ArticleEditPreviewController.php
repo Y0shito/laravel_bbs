@@ -6,33 +6,33 @@ namespace App\Http\Controllers;
 
 use App\Enums\PublicStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Exception;
 
-class ArticlePreviewController extends Controller
+class ArticleEditPreviewController extends Controller
 {
-    public function showArticlePreview()
+    public function showEditPreview()
     {
-        return view('article.preview');
+        return view('article.edit-preview');
     }
 
-    public function completion(Request $request)
+    public function articleUpdate(Request $request)
     {
+        $rule = ['id' => session('id'), 'user_id' => Auth::id()];
         DB::beginTransaction();
         try {
-            $article = Article::Create(
+            $article = Article::where($rule)->update(
                 [
-                    'user_id' => Auth::id(),
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::OPEN,
                 ]
             );
             DB::commit();
-            $request->session()->forget(['title', 'body']);
-            return redirect()->route('index');
+            $request->session()->forget(['title', 'body', 'id']);
+            return redirect()->route('mypage');
         } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
@@ -41,20 +41,20 @@ class ArticlePreviewController extends Controller
         }
     }
 
-    public function draft(Request $request)
+    public function editedArticleDraft(Request $request)
     {
+        $rule = ['id' => session('id'), 'user_id' => Auth::id()];
         DB::beginTransaction();
         try {
-            $article = Article::Create(
+            $article = Article::where($rule)->update(
                 [
-                    'user_id' => Auth::id(),
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::CLOSE,
                 ]
             );
             DB::commit();
-            $request->session()->forget(['title', 'body']);
+            $request->session()->forget(['title', 'body', 'id']);
             return redirect()->route('mypage');
         } catch (Exception $e) {
             DB::rollback();

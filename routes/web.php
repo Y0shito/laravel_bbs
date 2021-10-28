@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleCreateController;
 use App\Http\Controllers\ArticlePreviewController;
 use App\Http\Controllers\ArticleEditController;
+use App\Http\Controllers\ArticleEditPreviewController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\UserController;
@@ -39,14 +40,20 @@ Route::get('callback', [UserController::class, 'callback']);
 Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-logout');
 
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
+    //新規作成周り
     route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
     route::get('preview', [ArticlePreviewController::class, 'showArticlePreview']);
     route::post('preview', [ArticleCreateController::class, 'previewFromCreate'])->name('preview');
-    route::get('edit', [ArticleEditController::class, 'showArticleEdit']);
-    route::post('edit', [ArticleEditController::class, 'showArticleEdit'])->name('edit');
-    route::post('edit-preview', [ArticleEditController::class, 'previewFromEdit'])->name('editPreview');
     route::post('draft', [ArticlePreviewController::class, 'draft'])->name('draft');
     route::post('completion', [ArticlePreviewController::class, 'completion'])->name('completion');
+
+    //記事編集周り
+    route::get('edit', [ArticleEditController::class, 'showArticleEdit']); //バリデート失敗時必要
+    route::post('edit', [ArticleEditController::class, 'showArticleEdit'])->name('edit');
+    route::get('edit-preview', [ArticleEditPreviewController::class, 'showEditPreview'])->name('editPreview');
+    route::post('edit-preview', [ArticleEditController::class, 'previewFromEdit']);
+    route::post('edit-draft',[ArticleEditPreviewController::class, 'editedArticleDraft'])->name('editDraft');
+    route::post('update',[ArticleEditPreviewController::class, 'articleUpdate'])->name('update');
 });
 
 Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function () {
