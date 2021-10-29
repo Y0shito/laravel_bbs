@@ -9,7 +9,8 @@
                 @foreach ($articles as $article)
                     <div class="py-8 flex flex-wrap md:flex-nowrap">
                         <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                            <span class="font-semibold title-font text-gray-700">{{ $article->user->name }}</span>
+                            <span
+                                class="font-semibold title-font text-gray-700 hover:underline">{{ $article->user->name }}</span>
                             <span class="mt-1 text-gray-500 text-sm">{{ $article->created_at->format('Y年m月d日') }}</span>
                             <span
                                 class="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-gray-200">
@@ -29,15 +30,10 @@
                             </span>
                         </div>
                         <div class="md:flex-grow">
-                            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{ $article->title }}</h2>
+                            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2 hover:underline">
+                                <a href="{{ route('articles') }}"> {{ $article->title }} </a>
+                            </h2>
                             <p class="leading-relaxed">{{ $article->body }}</p>
-                            <a class="text-indigo-500 inline-flex items-center mt-4">記事を見る
-                                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14"></path>
-                                    <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
                         </div>
                     </div>
                 @endforeach

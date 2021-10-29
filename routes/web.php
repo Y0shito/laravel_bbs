@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\ArticleCreateController;
 use App\Http\Controllers\ArticleEditController;
 use App\Http\Controllers\ArticleEditPreviewController;
@@ -39,6 +40,8 @@ Route::get('twitter-login', [UserController::class, 'login'])->name('twitter-log
 Route::get('callback', [UserController::class, 'callback']);
 Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-logout');
 
+Route::get('articles', [ArticlesController::class, 'showArticles'])->name('articles');
+
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     //新規作成周り
     route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
@@ -52,8 +55,8 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     route::post('edit', [ArticleEditController::class, 'showArticleEdit'])->name('edit');
     route::get('edit-preview', [ArticleEditPreviewController::class, 'showEditPreview'])->name('editPreview');
     route::post('edit-preview', [ArticleEditController::class, 'previewFromEdit']);
-    route::post('edit-draft',[ArticleEditPreviewController::class, 'editedArticleDraft'])->name('editDraft');
-    route::post('update',[ArticleEditPreviewController::class, 'articleUpdate'])->name('update');
+    route::post('edit-draft', [ArticleEditPreviewController::class, 'editedArticleDraft'])->name('editDraft');
+    route::post('update', [ArticleEditPreviewController::class, 'articleUpdate'])->name('update');
 });
 
 Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function () {
