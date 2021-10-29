@@ -31,7 +31,7 @@
                         </div>
                         <div class="md:flex-grow">
                             <h2 class="text-2xl font-medium text-gray-900 title-font mb-2 hover:underline">
-                                <a href="{{ route('articles', ['id' => $article->id]) }}"> {{ $article->title }} </a>
+                                <a href="{{ route('articles', ['id' => $article->id]) }}">{{ $article->title }}</a>
                             </h2>
                             <p class="leading-relaxed">{{ $article->body }}</p>
                         </div>

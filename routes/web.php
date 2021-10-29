@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticleCreateController;
 use App\Http\Controllers\ArticleEditController;
 use App\Http\Controllers\ArticleEditPreviewController;
 use App\Http\Controllers\ArticlePreviewController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\UserController;
@@ -41,6 +42,8 @@ Route::get('callback', [UserController::class, 'callback']);
 Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-logout');
 
 Route::get('articles/{id}', [ArticlesController::class, 'showArticles'])->name('articles');
+
+Route::get('search', [SearchController::class, 'showSearch'])->name('search');
 
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     //新規作成周り

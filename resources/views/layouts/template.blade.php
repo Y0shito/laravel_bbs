@@ -20,10 +20,10 @@
                 <span class="ml-3 text-xl">BBS</span>
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a class="mr-5 hover:text-gray-900">検索</a>
+                <a href="{{route('search')}}" class="mr-1 hover:bg-gray-200 border-0 py-1 px-3 rounded">検索</a>
                 @auth
-                    <a href="{{ route('twitter-logout') }}" class="mr-5 hover:text-gray-900">ログアウト</a>
-                    <a href="{{ route('create') }}" class="mr-5 hover:text-gray-900">記事作成</a>
+                    <a href="{{ route('twitter-logout') }}" class="mr-1 hover:bg-gray-200 border-0 py-1 px-3 rounded">ログアウト</a>
+                    <a href="{{ route('create') }}" class="mr-1 hover:bg-gray-200 border-0 py-1 px-3 rounded">記事作成</a>
                 @endauth
             </nav>
             @guest
