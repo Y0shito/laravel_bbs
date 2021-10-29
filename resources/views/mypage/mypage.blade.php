@@ -13,12 +13,12 @@
                 <span class="ml-3 text-xl">{{ Auth::user()->name }}</span>
             </a>
             <nav
-                class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-                <a class="mr-5 text-white bg-gray-600 border-0 py-1 px-3 rounded">書いた記事</a>
-                <a class="mr-5 hover:text-gray-900">ブックマークした記事</a>
-                <a class="mr-5 hover:text-gray-900">フォロー</a>
-                <a class="mr-5 hover:text-gray-900">フォロワー</a>
-                <a class="mr-5 hover:text-gray-900">設定</a>
+                class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
+                <a class="mr-1 text-white bg-gray-600 border-0 py-1 px-3 rounded">書いた記事</a>
+                <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">ブックマークした記事</a>
+                <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">フォロー</a>
+                <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">フォロワー</a>
+                <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">設定</a>
             </nav>
         </div>
     </div>
@@ -49,10 +49,12 @@
                                 </span>
                             @endif
                             <span class="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pb-1">
-                                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>{{ $article->views }}
                             </span>
                             <span class="text-gray-400 inline-flex items-center leading-none text-sm pb-1">
@@ -79,15 +81,9 @@
                             </form>
                         </div>
                         <div class="md:flex-grow">
-                            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{ $article->title }}</h2>
+                            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2 hover:underline">
+                                {{ $article->title }}</h2>
                             <p class="leading-relaxed">{{ $article->body }}</p>
-                            <a class="text-indigo-500 inline-flex items-center mt-4">記事を見る
-                                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14"></path>
-                                    <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
                         </div>
                     </div>
                 @endforeach

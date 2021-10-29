@@ -40,7 +40,7 @@ Route::get('twitter-login', [UserController::class, 'login'])->name('twitter-log
 Route::get('callback', [UserController::class, 'callback']);
 Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-logout');
 
-Route::get('articles', [ArticlesController::class, 'showArticles'])->name('articles');
+Route::get('articles/{id}', [ArticlesController::class, 'showArticles'])->name('articles');
 
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     //新規作成周り
