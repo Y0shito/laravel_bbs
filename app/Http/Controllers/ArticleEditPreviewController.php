@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleEditPreviewController extends Controller
 {
-    public function showEditPreview()
-    {
-        return view('article.edit-preview');
-    }
-
     public function articleUpdate(Request $request)
     {
         $rule = ['id' => session('id'), 'user_id' => Auth::id()];

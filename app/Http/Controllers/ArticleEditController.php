@@ -27,6 +27,6 @@ class ArticleEditController extends Controller
 
         session(compact('title', 'body', 'id'));
 
-        return redirect()->route('editPreview');
+        return view('article.edit-preview');
     }
 }

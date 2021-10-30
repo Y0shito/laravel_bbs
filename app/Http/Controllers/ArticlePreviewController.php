@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class ArticlePreviewController extends Controller
 {
-    public function showArticlePreview()
-    {
-        return view('article.preview');
-    }
-
     public function completion(Request $request)
     {
         DB::beginTransaction();

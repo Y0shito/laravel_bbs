@@ -23,6 +23,6 @@ class ArticleCreateController extends Controller
 
         session(compact('title', 'body'));
 
-        return redirect()->route('preview');
+        return view('article.preview');//postで移動 view
     }
 }
