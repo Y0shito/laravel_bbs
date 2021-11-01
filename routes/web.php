@@ -48,7 +48,6 @@ Route::get('search', [SearchController::class, 'showSearch'])->name('search');
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     //新規作成周り
     route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
-    route::get('preview', [ArticlePreviewController::class, 'showArticlePreview']);
     route::post('preview', [ArticleCreateController::class, 'previewFromCreate'])->name('preview');
     route::post('draft', [ArticlePreviewController::class, 'draft'])->name('draft');
     route::post('completion', [ArticlePreviewController::class, 'completion'])->name('completion');
@@ -56,8 +55,7 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     //記事編集周り
     route::get('edit', [ArticleEditController::class, 'showArticleEdit']); //バリデート失敗時必要
     route::post('edit', [ArticleEditController::class, 'showArticleEdit'])->name('edit');
-    route::get('edit-preview', [ArticleEditPreviewController::class, 'showEditPreview'])->name('editPreview');
-    route::post('edit-preview', [ArticleEditController::class, 'previewFromEdit']);
+    route::post('edit-preview', [ArticleEditController::class, 'previewFromEdit'])->name('editPreview');
     route::post('edit-draft', [ArticleEditPreviewController::class, 'editedArticleDraft'])->name('editDraft');
     route::post('update', [ArticleEditPreviewController::class, 'articleUpdate'])->name('update');
 });
