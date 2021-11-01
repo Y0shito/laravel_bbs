@@ -15,7 +15,7 @@ class ArticleEditController extends Controller
 
     public function showArticleEdit(Request $request)
     {
-        $article = Article::withoutGlobalScope('public_status')->find($request->id);
+        $article = Article::find($request->id);
         return view('article.edit', compact('article'));
     }
 
