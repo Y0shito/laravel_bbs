@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\ArticleCreateController;
 use App\Http\Controllers\ArticleEditController;
 use App\Http\Controllers\ArticleEditPreviewController;
 use App\Http\Controllers\ArticlePreviewController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 

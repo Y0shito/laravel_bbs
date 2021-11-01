@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -22,13 +24,14 @@ class UserController extends Controller
 
         Auth::login(
             User::firstOrCreate([
-                'name' => $user->getName(),
+                'name' => $user->getName(), //どっちの名前か ユニークな値を登録する
             ]),
             true
         );
+        // dd($user);
         return redirect()->route('index');
     }
-    //トランザクション張っておく
+    //後でトランザクション張っておく
     //auth::login内に欲しいカラムいれればもっと登録出来る？（twitterのアバターなど）
     //ただこのメソッドだと、twitter側でアバター変わっている場合、再ログイン時更新されず古いアバターのままになる
 
