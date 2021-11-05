@@ -38,14 +38,14 @@
                                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                         clip-rule="evenodd" />
                                 </svg>{{ $article->created_at->format('Y年m月d日') }}</span>
-                            @if (isset($article->updated_at))
+                            @isset($article->updated_at)
                                 <span class="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pb-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                     </svg>{{ $article->updated_at->format('Y年m月d日') }}</span>
-                            @endif
+                            @endisset
                         </div>
                     </div>
                 </div>
@@ -54,5 +54,17 @@
                 </p>
             </div>
         </div>
+        <form method="POST">
+            @csrf
+            @guest
+                <button disabled class="text-white bg-gray-400 rounded py-1 px-4">ブックマーク</button>
+            @endguest
+            @auth
+                <button name="article_id" value="{{ $article->id }}" formaction="{{ route('bookmarkAdd') }}"
+                    class="text-blue-500 py-1 px-2 focus:outline-none hover:bg-blue-500 rounded hover:text-white">ブックマーク</button>
+                <button name="article_id" value="{{ $article->id }}" formaction="{{ route('bookmarkRemove') }}"
+                    class="text-blue-500 py-1 px-2 focus:outline-none hover:bg-blue-500 rounded hover:text-white">外す</button>
+            @endauth
+        </form>
     </section>
 @endsection

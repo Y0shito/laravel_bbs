@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticleEditController;
 use App\Http\Controllers\ArticleEditPreviewController;
 use App\Http\Controllers\ArticlePreviewController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SearchController;
@@ -67,4 +68,9 @@ Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function () {
     route::post('status-close', [MypageController::class, 'statusClose'])->name('articleClose');
     route::post('article-edit', [MypageController::class, ''])->name('articleEdit');
     route::post('article-delete', [MypageController::class, 'articleDelete'])->name('articleDelete');
+});
+
+Route::prefix('bookmark')->group(function () {
+    route::post('add', [BookmarkController::class, 'add'])->name('bookmarkAdd');
+    route::post('remove', [BookmarkController::class, 'remove'])->name('bookmarkRemove');
 });
