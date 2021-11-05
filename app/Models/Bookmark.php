@@ -14,4 +14,9 @@ class Bookmark extends Model
     const UPDATED_AT = null;
 
     protected $fillable = ['user_id', 'article_id'];
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class, 'article_id', 'id');
+    }
 }

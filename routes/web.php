@@ -9,6 +9,7 @@ use App\Http\Controllers\ArticlePreviewController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\MypageBookmarksController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
@@ -63,6 +64,7 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function () {
     route::get('/', [MypageController::class, 'showMypage'])->name('mypage');
+    route::get('bookmarks', [MypageBookmarksController::class, 'showBookmarks'])->name('mypageBookmarks');
 
     route::post('status-open', [MypageController::class, 'statusOpen'])->name('articleOpen');
     route::post('status-close', [MypageController::class, 'statusClose'])->name('articleClose');
