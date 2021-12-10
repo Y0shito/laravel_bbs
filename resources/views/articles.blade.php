@@ -10,19 +10,25 @@
                     <h1 class="sm:text-3xl text-2xl font-medium text-left title-font text-gray-900">
                         {{ $article->title }}
                     </h1>
-                    <form method="POST">
-                        @csrf
-                        @if ($button === 'disable')
-                            <button class="cursor-not-allowed text-white bg-gray-400 rounded py-1 px-4" disabled>ブックマーク</button>
-                        @elseif($button === 'bookmarked')
-                            <button name="article_id" value="{{ $article->id }}"
-                                formaction="{{ route('bookmarkRemove') }}"
-                                class="py-1 px-2 bg-blue-500 rounded text-white">ブックマーク中</button>
-                        @else
-                            <button name="article_id" value="{{ $article->id }}" formaction="{{ route('bookmarkAdd') }}"
-                                class="border-2 border-blue-500 text-blue-500 py-1 px-2 hover:bg-blue-500 rounded hover:text-white">ブックマーク</button>
-                        @endif
-                    </form>
+                    @if (Auth::check() and !($article->user_id === Auth::id()))
+                        <form method="POST">
+                            @csrf
+                            @if ($article->bookmark()->where('user_id', Auth::id())->exists())
+                                <button name="article_id" formaction="{{ route('bookmarkRemove') }}"
+                                    class="py-1 px-2 bg-blue-500 rounded text-white"
+                                    value="{{ $article->id }}">ブックマーク中</button>
+                            @else
+                                <button name="article_id" formaction="{{ route('bookmarkAdd') }}"
+                                    class="border-2 border-blue-500 text-blue-500 py-1 px-2 hover:bg-blue-500 rounded hover:text-white"
+                                    value="{{ $article->id }}">ブックマーク</button>
+                            @endif
+                        </form>
+                    @else
+                        <div>
+                            <button class="cursor-not-allowed text-white bg-gray-400 rounded py-1 px-4"
+                                disabled>ブックマーク</button>
+                        </div>
+                    @endif
                 </div>
                 <div class="xl:w-2/4 lg:w-3/4 mx-auto mb-8">
                     <div class="flex justify-between">
