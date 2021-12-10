@@ -6,10 +6,10 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-8 mx-auto">
             <form method="GET" action="{{ route('search') }}" class="flex justify-center">
-                <input type="text" name="search" placeholder="検索語句を入力"
-                    value="{{ isset($words) ? $words : '' }}"
+                <input type="text" name="search" placeholder="検索語句を入力" value="{{ isset($words) ? $words : '' }}"
                     class="w-2/4 mr-2 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                <button
+                    class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                     検索
                 </button>
             </form>
@@ -42,9 +42,15 @@
                                 </span>
                             </div>
                             <div class="md:flex-grow">
-                                <h2 class="text-2xl font-medium text-gray-900 title-font mb-2 hover:underline">
-                                    <a href="{{ route('articles', ['id' => $article->id]) }}">{{ $article->title }}</a>
-                                </h2>
+                                <div class="flex justify-between">
+                                    <h2 class="text-2xl font-medium text-gray-900 title-font mb-2 hover:underline">
+                                        <a href="{{ route('articles', ['id' => $article->id]) }}">{{ $article->title }}</a>
+                                    </h2>
+                                    <div>
+                                        <button class="cursor-not-allowed text-white bg-gray-400 rounded py-1 px-4"
+                                            disabled>ブックマーク</button>
+                                    </div>
+                                </div>
                                 <p class="leading-relaxed">{{ $article->body }}</p>
                             </div>
                         </div>
