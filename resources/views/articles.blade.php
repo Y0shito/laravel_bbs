@@ -1,15 +1,29 @@
 @extends('layouts.template')
 
-@section('title', '記事')
+@section('title', "BBS:$article->title")
 
 @section('content')
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-8 mx-auto">
             <div class="text-left mb-20">
-                <h1
-                    class="sm:text-3xl text-2xl font-medium text-left title-font text-gray-900 xl:w-2/4 lg:w-3/4 mx-auto mb-1 border-b-2">
-                    {{ $article->title }}
-                </h1>
+                <div class="flex justify-between xl:w-2/4 lg:w-3/4 mx-auto mb-1 border-b-2">
+                    <h1 class="sm:text-3xl text-2xl font-medium text-left title-font text-gray-900">
+                        {{ $article->title }}
+                    </h1>
+                    <form method="POST">
+                        @csrf
+                        @if ($button === 'disable')
+                            <button class="cursor-not-allowed text-white bg-gray-400 rounded py-1 px-4" disabled>ブックマーク</button>
+                        @elseif($button === 'bookmarked')
+                            <button name="article_id" value="{{ $article->id }}"
+                                formaction="{{ route('bookmarkRemove') }}"
+                                class="py-1 px-2 bg-blue-500 rounded text-white">ブックマーク中</button>
+                        @else
+                            <button name="article_id" value="{{ $article->id }}" formaction="{{ route('bookmarkAdd') }}"
+                                class="border-2 border-blue-500 text-blue-500 py-1 px-2 hover:bg-blue-500 rounded hover:text-white">ブックマーク</button>
+                        @endif
+                    </form>
+                </div>
                 <div class="xl:w-2/4 lg:w-3/4 mx-auto mb-8">
                     <div class="flex justify-between">
                         <div>
@@ -54,17 +68,5 @@
                 </p>
             </div>
         </div>
-        <form method="POST">
-            @csrf
-            @guest
-                <button disabled class="text-white bg-gray-400 rounded py-1 px-4">ブックマーク</button>
-            @endguest
-            @auth
-                <button name="article_id" value="{{ $article->id }}" formaction="{{ route('bookmarkAdd') }}"
-                    class="text-blue-500 py-1 px-2 focus:outline-none hover:bg-blue-500 rounded hover:text-white">ブックマーク</button>
-                <button name="article_id" value="{{ $article->id }}" formaction="{{ route('bookmarkRemove') }}"
-                    class="text-blue-500 py-1 px-2 focus:outline-none hover:bg-blue-500 rounded hover:text-white">外す</button>
-            @endauth
-        </form>
     </section>
 @endsection
