@@ -29,6 +29,11 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function bookmark()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
     public function scopeOpenArticles($query)
     {
         $query->where('public_status', PublicStatus::OPEN);
