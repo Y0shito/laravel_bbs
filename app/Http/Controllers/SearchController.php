@@ -21,7 +21,7 @@ class SearchController extends Controller
                     $query->where('title', 'not like', '%' . preg_replace('/-/', '', $word) . '%');
                 }
             }
-            $articles = $query->get();
+            $articles = $query->paginate(5);
             return view('search', ['words' => $request->search, 'articles' => $articles]);
         }
         return view('search');

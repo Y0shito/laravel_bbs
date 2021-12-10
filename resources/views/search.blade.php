@@ -71,6 +71,7 @@
                         </div>
                     @endforeach
                 </div>
+                {{ $articles->appends(['search' => $words])->links() }}
             @endisset
             @empty($articles)
                 <div class="text-center my-8">
