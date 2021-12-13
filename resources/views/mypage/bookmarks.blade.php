@@ -69,9 +69,18 @@
                             </span>
                         </div>
                         <div class="md:flex-grow">
-                            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2 hover:underline">
-                                <a href="{{ route('articles', ['id' => $article->article->id]) }}">{{ $article->article->title }}</a>
-                            </h2>
+                            <div class="flex justify-between">
+                                <h2 class="text-2xl font-medium text-gray-900 title-font mb-2 hover:underline">
+                                    <a
+                                        href="{{ route('articles', ['id' => $article->article->id]) }}">{{ $article->article->title }}</a>
+                                </h2>
+                                <form method="POST">
+                                    @csrf
+                                    <button name="article_id" formaction="{{ route('bookmarkRemove') }}"
+                                    class="py-1 px-2 bg-red-500 rounded text-white"
+                                    value="{{ $article->article->id }}">ブックマークを外す</button>
+                                </form>
+                            </div>
                             <p class="leading-relaxed">{{ $article->article->body }}</p>
                         </div>
                     </div>
