@@ -9,13 +9,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kyslik\ColumnSortable\Sortable;
 
 class Article extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Sortable;
 
     protected $fillable = ['user_id', 'title', 'body', 'public_status'];
     protected $dates = ['created_at', 'updated_at'];
+    public $sortable = ['title', 'views', 'bookmarks', 'created_at'];
 
     // protected static function booted()
     // {

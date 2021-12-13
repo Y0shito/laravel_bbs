@@ -11,7 +11,7 @@ class IndexController extends Controller
 {
     public function showIndex()
     {
-        $articles = Article::openArticles()->with('user')->paginate(5);
+        $articles = Article::openArticles()->with('user')->sortable()->paginate(5);
         return view('index', compact('articles'));
     }
 }
