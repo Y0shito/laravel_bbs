@@ -6,12 +6,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class IndexController extends Controller
 {
     public function showIndex()
     {
-        $articles = Article::openArticles()->with('user')->sortable()->paginate(5);
+        $articles = Article::openArticles()->with('user')->withCount(['bookmark' => function (Builder $query) {
+            $query->where('user_id', Auth::id());
+        }])->sortable()->paginate(5);
         return view('index', compact('articles'));
     }
 }

@@ -13,7 +13,7 @@
                     @if (Auth::check() and !($article->user_id === Auth::id()))
                         <form method="POST">
                             @csrf
-                            @if ($article->bookmark()->where('user_id', Auth::id())->exists())
+                            @if ($article->bookmark_count > 0)
                                 <button name="article_id" formaction="{{ route('bookmarkRemove') }}"
                                     class="py-1 px-2 bg-blue-500 rounded text-white"
                                     value="{{ $article->id }}">ブックマーク中</button>

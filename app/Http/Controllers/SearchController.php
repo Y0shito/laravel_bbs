@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class SearchController extends Controller
 {
@@ -21,7 +23,9 @@ class SearchController extends Controller
                     $query->where('title', 'not like', '%' . preg_replace('/-/', '', $word) . '%');
                 }
             }
-            $articles = $query->paginate(5);
+            $articles = $query->withCount(['bookmark' => function (Builder $query) {
+                $query->where('user_id', Auth::id());
+            }])->paginate(5);
             return view('search', ['words' => $request->search, 'articles' => $articles]);
         }
         return view('search');
