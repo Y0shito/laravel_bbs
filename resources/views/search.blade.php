@@ -16,6 +16,12 @@
             @isset($articles)
                 <div class="flex justify-between border-b-2 my-8">
                     <h1 class="text-xl text-gray-600">「{{ $words }}」の検索結果</h1>
+                    <div>
+                        @sortablelink('title','タイトル順','', ['class' => 'text-gray-800 px-2'])
+                        @sortablelink('views','閲覧数','', ['class' => 'text-gray-800 px-2'])
+                        @sortablelink('bookmarks','ブックマーク数','', ['class' => 'text-gray-800 px-2'])
+                        @sortablelink('created_at','作成日順','', ['class' => 'text-gray-800 px-2'])
+                    </div>
                 </div>
                 <div class="-my-8 divide-y-2 divide-gray-100">
                     @foreach ($articles as $article)
@@ -71,7 +77,7 @@
                         </div>
                     @endforeach
                 </div>
-                {{ $articles->appends(['search' => $words])->links() }}
+                {{ $articles->appends(['search' => $words, request()->query()])->links() }}
             @endisset
             @empty($articles)
                 <div class="text-center my-8">

@@ -25,7 +25,7 @@ class SearchController extends Controller
             }
             $articles = $query->withCount(['bookmark' => function (Builder $query) {
                 $query->where('user_id', Auth::id());
-            }])->paginate(5);
+            }])->sortable()->paginate(5);
             return view('search', ['words' => $request->search, 'articles' => $articles]);
         }
         return view('search');
