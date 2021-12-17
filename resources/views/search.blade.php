@@ -17,7 +17,6 @@
                 <div class="flex justify-between border-b-2 my-8">
                     <h1 class="text-xl text-gray-600">「{{ $words }}」の検索結果</h1>
                     <div>
-                        @sortablelink('title','タイトル順','', ['class' => 'text-gray-800 px-2'])
                         @sortablelink('views','閲覧数','', ['class' => 'text-gray-800 px-2'])
                         @sortablelink('bookmarks','ブックマーク数','', ['class' => 'text-gray-800 px-2'])
                         @sortablelink('created_at','作成日順','', ['class' => 'text-gray-800 px-2'])
