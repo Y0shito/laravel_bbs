@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 //ユーザー管理、ログイン、ログアウト、退会処理
 
@@ -21,19 +23,33 @@ class UserController extends Controller
     public function callback()
     {
         $user = Socialite::driver('twitter')->user();
+        $userId = $user->getId();
+        $userName = $user->getName();
 
-        Auth::login(
-            User::firstOrCreate([
-                'name' => $user->getName(), //どっちの名前か ユニークな値を登録する
-            ]),
-            true
-        );
-        // dd($user);
+        DB::beginTransaction();
+        try {
+            Auth::login(
+                User::firstOrCreate([
+                    'twitter_id' => $userId
+                ], [
+                    'name' => $userName
+                ]),
+                true
+            );
+            $loginUser = User::where('twitter_id', $userId)->first();
+            if ($loginUser->name !== $userName) {
+                $loginUser->update(['name' => $userName]);
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            $error = $e->getMessage();
+            dd($error);
+        }
         return redirect()->route('index');
     }
-    //後でトランザクション張っておく
-    //auth::login内に欲しいカラムいれればもっと登録出来る？（twitterのアバターなど）
-    //ただこのメソッドだと、twitter側でアバター変わっている場合、再ログイン時更新されず古いアバターのままになる
+
+    //firstOrCreate内に欲しいカラムいれればもっと登録出来る？（twitterのアバターなど）
 
     public function logout()
     {
