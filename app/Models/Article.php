@@ -15,7 +15,7 @@ class Article extends Model
 {
     use HasFactory, SoftDeletes, Sortable;
 
-    protected $fillable = ['user_id', 'title', 'body', 'public_status'];
+    protected $fillable = ['user_id', 'title', 'body', 'public_status', 'category'];
     protected $dates = ['created_at', 'updated_at'];
     public $sortable = ['title', 'views', 'bookmarks', 'created_at'];
 
@@ -35,6 +35,12 @@ class Article extends Model
     {
         return $this->hasMany(Bookmark::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 
     public function scopeOpenArticles($query)
     {

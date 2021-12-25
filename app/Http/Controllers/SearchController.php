@@ -13,7 +13,7 @@ class SearchController extends Controller
 {
     public function showSearch(Request $request)
     {
-        if (! empty($request->search)) {
+        if (!empty($request->search)) {
             $query = Article::openArticles();
             $words = preg_split('/[\p{Z}\p{Cc}]++/u', $request->search, 5, PREG_SPLIT_NO_EMPTY);
             foreach ($words as $word) {
@@ -23,7 +23,7 @@ class SearchController extends Controller
                     $query->where('title', 'not like', '%' . preg_replace('/-/', '', $word) . '%');
                 }
             }
-            $articles = $query->withCount(['bookmark' => function (Builder $query) {
+            $articles = $query->with(['user', 'category'])->withCount(['bookmark' => function (Builder $query) {
                 $query->where('user_id', Auth::id());
             }])->sortable()->paginate(5);
             return view('search', ['words' => $request->search, 'articles' => $articles]);

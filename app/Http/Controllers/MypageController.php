@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -11,7 +13,7 @@ class MypageController extends Controller
 {
     public function showMypage()
     {
-        $articles = Article::where('user_id', Auth::id())->get();
+        $articles = Article::where('user_id', Auth::id())->with('category')->get();
         return view('mypage.mypage', compact('articles'));
     }
 

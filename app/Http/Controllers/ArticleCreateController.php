@@ -22,7 +22,6 @@ class ArticleCreateController extends Controller
         $body = Spaceremoval::spaceRemoval($request->body);
 
         session(compact('title', 'body'));
-
-        return view('article.preview');//postで移動 view
+        return view('article.preview');
     }
 }

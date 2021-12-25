@@ -12,7 +12,7 @@ class IndexController extends Controller
 {
     public function showIndex()
     {
-        $articles = Article::openArticles()->with('user')->withCount(['bookmark' => function (Builder $query) {
+        $articles = Article::openArticles()->with(['user','category'])->withCount(['bookmark' => function (Builder $query) {
             $query->where('user_id', Auth::id());
         }])->sortable()->paginate(5);
         return view('index', compact('articles'));

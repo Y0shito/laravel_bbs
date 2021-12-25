@@ -31,6 +31,13 @@
                     <div class="py-8 flex flex-wrap md:flex-nowrap">
                         <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
                             <span class="mt-1 text-gray-400 inline-flex items-center leading-none text-sm pb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                </svg>{{ $article->category->category_name }}
+                            </span>
+                            <span class="mt-1 text-gray-400 inline-flex items-center leading-none text-sm pb-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
@@ -72,7 +79,8 @@
                                         formaction="{{ route('articleClose') }}"
                                         class="text-white bg-gray-600 hover:bg-gray-400 border-0 px-3 py-1 mt-1 rounded">非公開にする</button>
                                 @else
-                                    <button value="{{ $article->id }}" name="id" formaction="{{ route('articleOpen') }}"
+                                    <button value="{{ $article->id }}" name="id"
+                                        formaction="{{ route('articleOpen') }}"
                                         class="text-white bg-green-400 hover:bg-green-200 border-0 px-3 py-1 mt-1 rounded">公開する</button>
                                 @endif
                                 <button value="{{ $article->id }}" name="id" formaction="{{ route('edit') }}"

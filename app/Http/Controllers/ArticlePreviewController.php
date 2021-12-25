@@ -23,6 +23,7 @@ class ArticlePreviewController extends Controller
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::OPEN,
+                    'category' => intval($request->category),
                 ]
             );
             DB::commit();
@@ -46,6 +47,7 @@ class ArticlePreviewController extends Controller
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::CLOSE,
+                    'category' => intval($request->category),
                 ]
             );
             DB::commit();
