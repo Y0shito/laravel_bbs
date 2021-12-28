@@ -8,6 +8,13 @@
             <form method="GET" action="{{ route('search') }}" class="flex justify-center">
                 <input type="text" name="search" placeholder="検索語句を入力" value="{{ isset($words) ? $words : '' }}"
                     class="w-2/4 mr-2 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <div class="flex justify-center">
+                    {{ Form::select(
+                        'category',
+                        \App\Models\Category::select('id', 'category_name')->get()->pluck('category_name', 'id')->prepend('選択してください', ''),
+                        null,
+                    ) }}
+                </div>
                 <button
                     class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                     検索
@@ -83,7 +90,7 @@
                         </div>
                     @endforeach
                 </div>
-                {{ $articles->appends(['search' => $words, request()->query()])->links() }}
+                {{ $articles->appends(request()->query())->links() }}
             @endisset
             @empty($articles)
                 <div class="text-center my-8">
