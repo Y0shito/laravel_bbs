@@ -13,6 +13,7 @@ use App\Http\Controllers\MypageBookmarksController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,3 +77,5 @@ Route::prefix('bookmark')->group(function () {
     route::post('add', [BookmarkController::class, 'add'])->name('bookmarkAdd');
     route::post('remove', [BookmarkController::class, 'remove'])->name('bookmarkRemove');
 });
+
+route::get('user/{id}', [UserPageController::class, 'showUserpage'])->name('userpage');

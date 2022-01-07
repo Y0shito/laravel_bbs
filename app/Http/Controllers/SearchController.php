@@ -14,7 +14,6 @@ class SearchController extends Controller
 {
     public function showSearch(Request $request)
     {
-        DB::enableQueryLog();
         $query = Article::openArticles();
         $search = $request->search;
         $category = intval($request->category);

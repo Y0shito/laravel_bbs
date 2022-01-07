@@ -1,15 +1,30 @@
 @extends('layouts.template')
 
-@section('title', 'BBS')
-
+@section('title', 'ユーザーページ')
 @section('content')
+    <div class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+                    viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl">{{ $user->name }}</span>
+            </a>
+            <nav
+                class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
+                <a class="mr-1 text-white bg-gray-600 border-0 py-1 px-3 rounded">書いた記事</a>
+                <a href="" class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">ブックマークした記事</a>
+                <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">フォロー</a>
+                <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">フォロワー</a>
+                <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">設定</a>
+            </nav>
+        </div>
+    </div>
+
     <section class="text-gray-600 body-font overflow-hidden">
         <div class="container px-5 py-8 mx-auto">
-            <div class="flex justify-end mb-8">
-                @sortablelink('views','閲覧数','', ['class' => 'text-gray-800 px-2'])
-                @sortablelink('bookmarks','ブックマーク数','', ['class' => 'text-gray-800 px-2'])
-                @sortablelink('created_at','作成日順','', ['class' => 'text-gray-800 px-2'])
-            </div>
             <div class="-my-8 divide-y-2 divide-gray-100">
                 @foreach ($articles as $article)
                     <div class="py-8 flex flex-wrap md:flex-nowrap">
@@ -25,7 +40,7 @@
                                         d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                                 </svg>{{ $article->category->category_name }}
                             </span>
-                            <span class="text-gray-400 inline-flex items-center leading-none text-sm pb-1">
+                            <span class="mt-1 text-gray-400 inline-flex items-center leading-none text-sm pb-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
@@ -91,7 +106,6 @@
                     </div>
                 @endforeach
             </div>
-            {{ $articles->appends(request()->query())->links() }}
         </div>
     </section>
 @endsection
