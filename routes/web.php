@@ -14,6 +14,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPageController;
+use App\Http\Controllers\UserBookmarksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,3 +80,4 @@ Route::prefix('bookmark')->group(function () {
 });
 
 route::get('user/{id}', [UserPageController::class, 'showUserpage'])->name('userpage');
+route::get('user/{id}/bookmarks', [UserBookmarksController::class, 'showUserBookmarks'])->name('userBookmarks');
