@@ -22,6 +22,13 @@
                 <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">フォロワー</a>
                 <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">設定</a>
             </nav>
+            <form method="POST">
+                @csrf
+                <button name="following_id" formaction="{{ route('follow') }}"
+                    class="py-1 px-2 bg-blue-500 rounded text-white" value="{{ $user->id }}">フォロー</button>
+                <button name="following_id" formaction="{{ route('unfollow') }}"
+                    class="py-1 px-2 bg-red-500 rounded text-white" value="{{ $user->id }}">フォローを外す</button>
+            </form>
         </div>
     </div>
 
