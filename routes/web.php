@@ -8,14 +8,14 @@ use App\Http\Controllers\ArticleEditPreviewController;
 use App\Http\Controllers\ArticlePreviewController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MypageBookmarksController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserBookmarksController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPageController;
-use App\Http\Controllers\UserBookmarksController;
-use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 
 /*

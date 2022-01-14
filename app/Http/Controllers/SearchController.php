@@ -8,7 +8,6 @@ use App\Models\Article;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -16,17 +15,17 @@ class SearchController extends Controller
     {
         $query = Article::openArticles();
         $search = $request->search;
-        $category = intval($request->category);
+        $category = (int) ($request->category);
 
-        if (empty($search) and empty($category)) {
+        if (empty($search) && empty($category)) {
             return view('search');
         }
 
-        if (!empty($category)) {
+        if (! empty($category)) {
             $query->where('category_id', 'like', "$category");
         }
 
-        if (!empty($search)) {
+        if (! empty($search)) {
             $words = preg_split('/[\p{Z}\p{Cc}]++/u', $search, 5, PREG_SPLIT_NO_EMPTY);
 
             foreach ($words as $word) {
