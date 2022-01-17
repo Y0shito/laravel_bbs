@@ -13,12 +13,13 @@ class UserPageController extends Controller
 {
     public function showUserpage($id)
     {
-        $user = User::find($id)->withCount(['userFollowers' => function (Builder $query) {
+        $user = User::where('id', $id)->withCount(['userFollowers' => function (Builder $query) {
             $query->where('user_id', Auth::id());
         }])->first();
-        $articles = Article::openArticles()->where('user_id', $id)->with(['user', 'category'])->withCount(['bookmark' => function (Builder $query) {
-            $query->where('user_id', Auth::id());
-        }])->get();
+        $articles = Article::openArticles()->where('user_id', $id)->with(['user', 'category'])
+            ->withCount(['bookmark' => function (Builder $query) {
+                $query->where('user_id', Auth::id());
+            }])->get();
 
         return view('userpage', compact('user', 'articles'));
     }

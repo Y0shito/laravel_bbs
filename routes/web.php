@@ -16,6 +16,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserBookmarksController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPageController;
+use App\Http\Controllers\UserFollowingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,7 +83,9 @@ Route::prefix('bookmark')->group(function () {
 
 route::get('user/{id}', [UserPageController::class, 'showUserpage'])->name('userpage');
 route::get('user/{id}/bookmarks', [UserBookmarksController::class, 'showUserBookmarks'])->name('userBookmarks');
+route::get('user/{id}/followings', [UserFollowingController::class, 'showFollowingPage'])->name('userFollowing');
 
 route::post('follow', [FollowController::class, 'follow'])->name('follow');
 route::post('unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
 //後でグループ化してmiddlewareのauth通す
+
