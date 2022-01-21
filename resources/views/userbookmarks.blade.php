@@ -48,8 +48,8 @@
                 @foreach ($articles as $article)
                     <div class="py-8 flex flex-wrap md:flex-nowrap">
                         <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                            <span
-                                class="font-semibold title-font text-gray-700 hover:underline">{{ $article->article->user->name }}</span>
+                            <span class="font-semibold title-font text-gray-700 hover:underline"><a
+                                    href="{{ route('userpage', ['id' => $article->article->user->id]) }}">{{ $article->article->user->name }}</span></a>
                             <span class="mt-1 text-gray-400 inline-flex items-center leading-none text-sm pb-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
                                     fill="currentColor">

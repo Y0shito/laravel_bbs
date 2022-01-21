@@ -40,5 +40,10 @@
                 </div>
             @endif
         </div>
+        @if (isset($followings))
+            @foreach ($followings as $following)
+                <p>{{ $following->name }}</p>
+            @endforeach
+        @endif
     </div>
 @endsection
