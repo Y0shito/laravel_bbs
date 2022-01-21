@@ -42,7 +42,7 @@
         </div>
         @if (isset($followings))
             @foreach ($followings as $following)
-                <p>{{ $following->name }}</p>
+                <p>{{ $following->userFollows }}</p>
             @endforeach
         @endif
     </div>
