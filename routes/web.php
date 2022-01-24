@@ -17,6 +17,7 @@ use App\Http\Controllers\UserBookmarksController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPageController;
 use App\Http\Controllers\UserFollowingController;
+use App\Http\Controllers\UserFollowerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,6 +85,7 @@ Route::prefix('bookmark')->group(function () {
 route::get('user/{id}', [UserPageController::class, 'showUserpage'])->name('userpage');
 route::get('user/{id}/bookmarks', [UserBookmarksController::class, 'showUserBookmarks'])->name('userBookmarks');
 route::get('user/{id}/followings', [UserFollowingController::class, 'showFollowingPage'])->name('userFollowing');
+route::get('user/{id}/followers', [UserFollowerController::class, 'showFollowersPage'])->name('userFollowers');
 
 route::post('follow', [FollowController::class, 'follow'])->name('follow');
 route::post('unfollow', [FollowController::class, 'unfollow'])->name('unfollow');

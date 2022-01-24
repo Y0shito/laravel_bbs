@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', "{$user->name}がフォローしているユーザー")
+@section('title', "{$user->name}のフォロワー")
 @section('content')
     <div class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -19,9 +19,9 @@
                 <a href="{{ route('userBookmarks', ['id' => $user->id]) }}"
                     class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">ブックマークした記事</a>
                 <a href="{{ route('userFollowing', ['id' => $user->id]) }}"
-                    class="mr-1 text-white bg-gray-600 border-0 py-1 px-3 rounded">フォロー</a>
+                    class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">フォロー</a>
                 <a href="{{ route('userFollowers', ['id' => $user->id]) }}"
-                    class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">フォロワー</a>
+                    class="mr-1 text-white bg-gray-600 border-0 py-1 px-3 rounded">フォロワー</a>
                 <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">設定</a>
             </nav>
             @if (Auth::check() and !($user->id === Auth::id()))
@@ -42,10 +42,10 @@
             @endif
         </div>
         <div class="container px-5 py-8 mx-auto">
-            @isset($user->userFollows)
+            @isset($user->userFollowers)
                 <table class="table-auto">
                     <tbody>
-                        @foreach ($user->userFollows as $follow)
+                        @foreach ($user->userFollowers as $follow)
                             <tr>
                                 <td class="border px-4 py-2">
                                     <a href="{{ route('userpage', ['id' => $follow->id]) }}">{{ $follow->name }}</a>
