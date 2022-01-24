@@ -11,12 +11,10 @@ class UserFollowingController extends Controller
 {
     public function showFollowingPage(Request $request)
     {
-        $user_id = User::where('id', $request->id);
-        $user = $user_id->withCount(['userFollowers' => function (Builder $query) {
-            $query->where('user_id', Auth::id());
-        }])->first();
-        $followings = $user_id->with('userFollows')->get();
-        // dd($followings);
-        return view('userfollowing', compact('user','followings'));
+        $user = User::with('userFollows')
+            ->withCount(['userFollowers' => function (Builder $query) {
+                $query->where('user_id', Auth::id());
+            }])->find($request->id);
+        return view('userfollowing', compact('user'));
     }
 }

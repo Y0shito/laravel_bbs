@@ -40,10 +40,20 @@
                 </div>
             @endif
         </div>
-        @if (isset($followings))
-            @foreach ($followings as $following)
-                <p>{{ $following->userFollows }}</p>
-            @endforeach
-        @endif
+        <div class="container px-5 py-8 mx-auto">
+            @isset($user->userFollows)
+                <table class="table-auto">
+                    <tbody>
+                        @foreach ($user->userFollows as $follow)
+                            <tr>
+                                <td class="border px-4 py-2">
+                                    <a href="{{ route('userpage', ['id' => $follow->id]) }}">{{ $follow->name }}</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endisset
+        </div>
     </div>
 @endsection
