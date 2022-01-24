@@ -15,9 +15,9 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserBookmarksController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserPageController;
-use App\Http\Controllers\UserFollowingController;
 use App\Http\Controllers\UserFollowerController;
+use App\Http\Controllers\UserFollowingController;
+use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,4 +90,3 @@ route::get('user/{id}/followers', [UserFollowerController::class, 'showFollowers
 route::post('follow', [FollowController::class, 'follow'])->name('follow');
 route::post('unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
 //後でグループ化してmiddlewareのauth通す
-
