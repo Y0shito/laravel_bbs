@@ -12,7 +12,7 @@ class ArticlesController extends Controller
 {
     public function showArticles($id)
     {
-        $article = Article::withCount(['bookmark' => function (Builder $query) {
+        $article = Article::openArticles()->withCount(['bookmark' => function (Builder $query) {
             $query->where('user_id', Auth::id());
         }])->find($id);
         $article->timestamps = false;
