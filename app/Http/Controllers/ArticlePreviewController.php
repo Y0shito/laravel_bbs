@@ -23,16 +23,14 @@ class ArticlePreviewController extends Controller
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::OPEN,
-                    'category' => (int) ($request->category),
+                    'category_id' => (int) ($request->category),
                 ]
             );
             DB::commit();
             $request->session()->forget(['title', 'body']);
-            return redirect()->route('index');
+            return redirect()->route('articles', ['id' => $article->id]);
         } catch (Exception $e) {
             DB::rollback();
-            $error = $e->getMessage();
-            dd($error);
             return back();
         }
     }
@@ -47,16 +45,14 @@ class ArticlePreviewController extends Controller
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::CLOSE,
-                    'category' => (int) ($request->category),
+                    'category_id' => (int) ($request->category),
                 ]
             );
             DB::commit();
             $request->session()->forget(['title', 'body']);
-            return redirect()->route('mypage');
+            return redirect()->route('userpage', ['id' => Auth::id()]);
         } catch (Exception $e) {
             DB::rollback();
-            $error = $e->getMessage();
-            dd($error);
             return back();
         }
     }
