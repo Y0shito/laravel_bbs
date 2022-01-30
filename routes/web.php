@@ -67,15 +67,15 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     route::post('update', [ArticleEditPreviewController::class, 'articleUpdate'])->name('update');
 });
 
-Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function () {
-    route::get('/', [MypageController::class, 'showMypage'])->name('mypage');
-    route::get('bookmarks', [MypageBookmarksController::class, 'showBookmarks'])->name('mypageBookmarks');
+// Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function () {
+//     route::get('/', [MypageController::class, 'showMypage'])->name('mypage');
+//     route::get('bookmarks', [MypageBookmarksController::class, 'showBookmarks'])->name('mypageBookmarks');
 
-    route::post('status-open', [MypageController::class, 'statusOpen'])->name('articleOpen');
-    route::post('status-close', [MypageController::class, 'statusClose'])->name('articleClose');
-    route::post('article-edit', [MypageController::class, ''])->name('articleEdit');
-    route::post('article-delete', [MypageController::class, 'articleDelete'])->name('articleDelete');
-});
+//     route::post('status-open', [MypageController::class, 'statusOpen'])->name('articleOpen');
+//     route::post('status-close', [MypageController::class, 'statusClose'])->name('articleClose');
+//     route::post('article-edit', [MypageController::class, ''])->name('articleEdit');
+//     route::post('article-delete', [MypageController::class, 'articleDelete'])->name('articleDelete');
+// });
 
 Route::prefix('bookmark')->group(function () {
     route::post('add', [BookmarkController::class, 'add'])->name('bookmarkAdd');
@@ -86,6 +86,10 @@ route::get('user/{id}', [UserPageController::class, 'showUserpage'])->name('user
 route::get('user/{id}/bookmarks', [UserBookmarksController::class, 'showUserBookmarks'])->name('userBookmarks');
 route::get('user/{id}/followings', [UserFollowingController::class, 'showFollowingPage'])->name('userFollowing');
 route::get('user/{id}/followers', [UserFollowerController::class, 'showFollowersPage'])->name('userFollowers');
+
+route::post('status-open', [UserPageController::class, 'statusOpen'])->name('articleOpen');
+route::post('status-close', [UserPageController::class, 'statusClose'])->name('articleClose');
+route::post('article-delete', [UserPageController::class, 'articleDelete'])->name('articleDelete');
 
 route::post('follow', [FollowController::class, 'follow'])->name('follow');
 route::post('unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
