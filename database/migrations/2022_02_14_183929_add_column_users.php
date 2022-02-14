@@ -17,8 +17,8 @@ class AddColumnUsers extends Migration
             $table->string('introduction', 200)->nullable()->after('created_at');
             $table->string('url', 2000)->nullable()->after('introduction');
             $table->integer('articles')->default(0)->after('url');
-            $table->integer('bookmarks')->default(0)->after('articles');
-            $table->integer('followings')->default(0)->after('bookmarks');
+            $table->integer('bookmarked')->default(0)->after('articles');
+            $table->integer('followings')->default(0)->after('bookmarked');
             $table->integer('followers')->default(0)->after('followings');
         });
     }
@@ -31,7 +31,7 @@ class AddColumnUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['introduction', 'url', 'articles', 'bookmarks', 'followings', 'followers']);
+            $table->dropColumn(['introduction', 'url', 'articles', 'bookmarked', 'followings', 'followers']);
         });
     }
 }
