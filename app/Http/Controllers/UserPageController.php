@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\PublicStatus;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
-use App\Enums\PublicStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserPageController extends Controller
 {
