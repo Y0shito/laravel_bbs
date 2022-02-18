@@ -25,9 +25,12 @@ class BookmarkController extends Controller
                     'article_id' => $id
                 ]
             );
+
             $article = Article::find($id);
             $article->timestamps = false;
             $article->increment('bookmarks');
+            $article->user()->increment('total_bookmarked');
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
@@ -48,9 +51,12 @@ class BookmarkController extends Controller
                     'article_id' => $id
                 ]
             )->delete();
+
             $article = Article::find($id);
             $article->timestamps = false;
             $article->decrement('bookmarks');
+            $article->user()->decrement('total_bookmarked');
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
