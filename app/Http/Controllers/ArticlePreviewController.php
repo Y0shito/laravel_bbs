@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\PublicStatus;
 use App\Models\Article;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,9 +26,6 @@ class ArticlePreviewController extends Controller
                     'category_id' => (int) ($request->category),
                 ]
             );
-
-            $user = User::find(Auth::id());
-            $user->increment('articles');
 
             DB::commit();
             $request->session()->forget(['title', 'body']);
