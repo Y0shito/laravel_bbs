@@ -16,6 +16,7 @@ class ArticleEditPreviewController extends Controller
     public function articleUpdate(Request $request)
     {
         $rule = ['id' => session('id'), 'user_id' => Auth::id()];
+        $article_id = session('id');
         DB::beginTransaction();
         try {
             $article = Article::where($rule)->update(
@@ -25,9 +26,10 @@ class ArticleEditPreviewController extends Controller
                     'public_status' => PublicStatus::OPEN,
                 ]
             );
+
             DB::commit();
             $request->session()->forget(['title', 'body', 'id']);
-            return redirect()->route('mypage');
+            return redirect()->route('articles', ['id' => $article_id]);
         } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
@@ -50,7 +52,7 @@ class ArticleEditPreviewController extends Controller
             );
             DB::commit();
             $request->session()->forget(['title', 'body', 'id']);
-            return redirect()->route('mypage');
+            return redirect()->route('userpage', ['id' => Auth::id()]);
         } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
