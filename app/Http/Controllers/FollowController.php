@@ -18,12 +18,21 @@ class FollowController extends Controller
         $opponent = User::find($request->following_id);
         $opponent->timestamps = false;
         $opponent->increment('followers');
+
         return back();
     }
 
     public function unFollow(Request $request)
     {
-        User::find(Auth::id())->userFollows()->detach($request->following_id);
+        $user = User::find(Auth::id());
+        $user->userFollows()->detach($request->following_id);
+        $user->timestamps = false;
+        $user->decrement('followings');
+
+        $opponent = User::find($request->following_id);
+        $opponent->timestamps = false;
+        $opponent->decrement('followers');
+
         return back();
     }
 }
