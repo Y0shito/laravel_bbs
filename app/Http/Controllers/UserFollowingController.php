@@ -17,6 +17,7 @@ class UserFollowingController extends Controller
             ->withCount(['userFollowers' => function (Builder $query) {
                 $query->where('user_id', Auth::id());
             }])->find($request->id);
+
         return view('userfollowing', compact('user'));
     }
 }
