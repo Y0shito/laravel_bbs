@@ -23,7 +23,8 @@
                 <a href="{{ route('userFollowers', ['id' => $user->id]) }}"
                     class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">フォロワー</a>
                 @if ($isMyPage)
-                    <a class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">設定</a>
+                    <a href="{{ route('userSettings', ['id' => $user->id]) }}"
+                        class="mr-1 text-gray-900 hover:bg-gray-200 border-0 py-1 px-3 rounded">設定</a>
                 @endif
             </nav>
             @if (Auth::check() and !($user->id === Auth::id()))

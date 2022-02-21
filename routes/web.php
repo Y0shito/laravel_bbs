@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserFollowerController;
 use App\Http\Controllers\UserFollowingController;
 use App\Http\Controllers\UserPageController;
+use App\Http\Controllers\UserSettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +87,7 @@ route::get('user/{id}', [UserPageController::class, 'showUserpage'])->name('user
 route::get('user/{id}/bookmarks', [UserBookmarksController::class, 'showUserBookmarks'])->name('userBookmarks');
 route::get('user/{id}/followings', [UserFollowingController::class, 'showFollowingPage'])->name('userFollowing');
 route::get('user/{id}/followers', [UserFollowerController::class, 'showFollowersPage'])->name('userFollowers');
+route::get('user/{id}/settings', [UserSettingController::class, 'showSettings'])->name('userSettings');
 
 route::post('status-open', [UserPageController::class, 'statusOpen'])->name('articleOpen');
 route::post('status-close', [UserPageController::class, 'statusClose'])->name('articleClose');
