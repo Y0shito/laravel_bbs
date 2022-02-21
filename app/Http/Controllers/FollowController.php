@@ -12,11 +12,9 @@ class FollowController extends Controller
     {
         $user = User::find(Auth::id());
         $user->userFollows()->attach($request->following_id);
-        $user->timestamps = false;
         $user->increment('followings');
 
         $opponent = User::find($request->following_id);
-        $opponent->timestamps = false;
         $opponent->increment('followers');
 
         return back();
@@ -26,11 +24,9 @@ class FollowController extends Controller
     {
         $user = User::find(Auth::id());
         $user->userFollows()->detach($request->following_id);
-        $user->timestamps = false;
         $user->decrement('followings');
 
         $opponent = User::find($request->following_id);
-        $opponent->timestamps = false;
         $opponent->decrement('followers');
 
         return back();
