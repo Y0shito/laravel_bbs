@@ -10,7 +10,14 @@ class FollowController extends Controller
 {
     public function follow(Request $request)
     {
-        User::find(Auth::id())->userFollows()->attach($request->following_id);
+        $user = User::find(Auth::id());
+        $user->userFollows()->attach($request->following_id);
+        $user->timestamps = false;
+        $user->increment('followings');
+
+        $opponent = User::find($request->following_id);
+        $opponent->timestamps = false;
+        $opponent->increment('followers');
         return back();
     }
 
