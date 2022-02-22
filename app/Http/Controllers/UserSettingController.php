@@ -5,11 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Traits\Spaceremoval;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserSettingController extends Controller
 {
+    use Spaceremoval;
+
     public function showSettings($id)
     {
         $isMyPage = (int)$id === Auth::id();
@@ -22,5 +28,29 @@ class UserSettingController extends Controller
             return view('settings', compact('user', 'isMyPage'));
         }
         return back();
+    }
+
+    public function updateSettings(Request $request)
+    {
+        $introduction = Spaceremoval::spaceRemoval($request->introduction);
+        $url = Spaceremoval::spaceRemoval($request->url);
+
+        DB::beginTransaction();
+        try {
+            $settings = User::where('id', Auth::id())->update(
+                [
+                    'introduction' => $introduction,
+                    'url' => $url,
+                ]
+            );
+
+            DB::commit();
+            return redirect()->route('userpage', ['id' => Auth::id()]);
+        } catch (Exception $e) {
+            DB::rollback();
+            $error = $e->getMessage();
+            dd($error);
+            return back();
+        }
     }
 }

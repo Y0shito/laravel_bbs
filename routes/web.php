@@ -88,6 +88,7 @@ route::get('user/{id}/bookmarks', [UserBookmarksController::class, 'showUserBook
 route::get('user/{id}/followings', [UserFollowingController::class, 'showFollowingPage'])->name('userFollowing');
 route::get('user/{id}/followers', [UserFollowerController::class, 'showFollowersPage'])->name('userFollowers');
 route::get('user/{id}/settings', [UserSettingController::class, 'showSettings'])->name('userSettings');
+route::post('user/{id}/settings', [UserSettingController::class, 'updateSettings'])->name('updateSettings');
 
 route::post('status-open', [UserPageController::class, 'statusOpen'])->name('articleOpen');
 route::post('status-close', [UserPageController::class, 'statusClose'])->name('articleClose');
