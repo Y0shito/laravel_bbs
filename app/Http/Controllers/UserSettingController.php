@@ -9,6 +9,7 @@ use App\Traits\Spaceremoval;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use App\Http\Requests\SettingRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -30,7 +31,7 @@ class UserSettingController extends Controller
         return back();
     }
 
-    public function updateSettings(Request $request)
+    public function updateSettings(SettingRequest $request)
     {
         $introduction = Spaceremoval::spaceRemoval($request->introduction);
         $url = Spaceremoval::spaceRemoval($request->url);
