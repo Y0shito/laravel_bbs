@@ -34,7 +34,7 @@
                 </svg>
             </a>
         </span>
-        @if (Auth::check() and !($user->id === Auth::id()))
+        @if (Auth::check() and !($isMyPage))
             <form method="POST">
                 @csrf
                 @if ($user->user_followers_count > 0)
