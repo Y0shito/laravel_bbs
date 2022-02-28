@@ -17,6 +17,7 @@ class UserBookmarksController extends Controller
             $query->where('user_id', Auth::id());
         }])->first();
         $bookmarks = Bookmark::where('user_id', $id)->with(['article'])->get();
-        return view('userbookmarks', compact('user'), ['articles' => $bookmarks]);
+        $isMyPage = (int)$id === Auth::id();
+        return view('userbookmarks', compact('user', 'isMyPage'), ['articles' => $bookmarks]);
     }
 }
