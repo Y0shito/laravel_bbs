@@ -24,17 +24,25 @@
                     class="{{ \Route::is('userSettings') ? 'text-white bg-gray-600' : 'text-gray-900 hover:bg-gray-200' }} border-0 py-1 px-3 rounded mr-1">設定</a>
             @endif
         </nav>
-        <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-            <a href="https://twitter.com/intent/user?user_id={{ $user->twitter_id }}" class="mr-4 text-gray-500">
-                <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    class="w-5 h-5" viewBox="0 0 24 24">
-                    <path
-                        d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
-                    </path>
+        @isset($user->url)
+            <a href="{{ $user->url }}" class="mr-4 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z"
+                        clip-rule="evenodd" />
                 </svg>
             </a>
+        @endisset
+        <a href="https://twitter.com/intent/user?user_id={{ $user->twitter_id }}" class="mr-4 text-gray-500">
+            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                class="w-5 h-5" viewBox="0 0 24 24">
+                <path
+                    d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+                </path>
+            </svg>
+        </a>
         </span>
-        @if (Auth::check() and !($isMyPage))
+        @if (Auth::check() and !$isMyPage)
             <form method="POST">
                 @csrf
                 @if ($user->user_followers_count > 0)
