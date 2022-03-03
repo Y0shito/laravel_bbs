@@ -31,63 +31,7 @@
                 </div>
                 <div class="-my-8 divide-y-2 divide-gray-100">
                     @foreach ($articles as $article)
-                        <div class="py-8 flex flex-wrap md:flex-nowrap">
-                            <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                                <span
-                                    class="font-semibold title-font text-gray-700 hover:underline">{{ $article->user->name }}</span>
-                                <span class="mt-1 text-gray-400 inline-flex items-center leading-none text-sm pb-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                                    </svg>{{ $article->category->category_name }}
-                                </span>
-                                <span class="mt-1 text-gray-500 text-sm">{{ $article->created_at->format('Y年m月d日') }}</span>
-                                <span
-                                    class="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-gray-200">
-                                    <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                        <circle cx="12" cy="12" r="3"></circle>
-                                    </svg>{{ $article->views }}
-                                </span>
-                                <span class="text-gray-400 inline-flex items-center leading-none text-sm">
-                                    <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <path
-                                            d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
-                                        </path>
-                                    </svg>{{ $article->bookmarks }}
-                                </span>
-                            </div>
-                            <div class="md:flex-grow">
-                                <div class="flex justify-between">
-                                    <h2 class="text-2xl font-medium text-gray-900 title-font mb-2 hover:underline">
-                                        <a href="{{ route('articles', ['id' => $article->id]) }}">{{ $article->title }}</a>
-                                    </h2>
-                                    @if (Auth::check() and !($article->user_id === Auth::id()))
-                                        <form method="POST">
-                                            @csrf
-                                            @if ($article->bookmark_count > 0)
-                                                <button name="article_id" formaction="{{ route('bookmarkRemove') }}"
-                                                    class="py-1 px-2 bg-blue-500 rounded text-white"
-                                                    value="{{ $article->id }}">ブックマーク中</button>
-                                            @else
-                                                <button name="article_id" formaction="{{ route('bookmarkAdd') }}"
-                                                    class="border-2 border-blue-500 text-blue-500 py-1 px-2 hover:bg-blue-500 rounded hover:text-white"
-                                                    value="{{ $article->id }}">ブックマーク</button>
-                                            @endif
-                                        </form>
-                                    @else
-                                        <div>
-                                            <button class="cursor-not-allowed text-white bg-gray-400 rounded py-1 px-4"
-                                                disabled>ブックマーク</button>
-                                        </div>
-                                    @endif
-                                </div>
-                                <p class="leading-relaxed">{{ $article->body }}</p>
-                            </div>
-                        </div>
+                        @include('components.article', compact(['article']))
                     @endforeach
                 </div>
                 {{ $articles->appends(request()->query())->links() }}
