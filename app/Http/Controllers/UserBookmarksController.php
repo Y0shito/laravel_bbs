@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Bookmark;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,8 +17,8 @@ class UserBookmarksController extends Controller
         $user = User::where('id', $id)->withCount(['userFollowers' => function (Builder $query) {
             $query->where('user_id', Auth::id());
         }])->first();
-        $bookmarks = Bookmark::where('user_id', $id)->with(['article'])->get();
+        $bookmarkedArticles = Article::whereIn('id', Bookmark::where('user_id', $id)->pluck('article_id'))->get();
         $isMyPage = (int)$id === Auth::id();
-        return view('userbookmarks', compact('user', 'isMyPage'), ['articles' => $bookmarks]);
+        return view('userbookmarks', compact('user', 'isMyPage'), ['articles' => $bookmarkedArticles]);
     }
 }
