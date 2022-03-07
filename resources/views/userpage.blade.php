@@ -75,7 +75,7 @@
                                                 value="{{ $article->id }}">ブックマーク</button>
                                         @endif
                                     </form>
-                                @elseif ($user->id === Auth::id())
+                                @elseif ($isMyPage)
                                     <form method="POST">
                                         @csrf
                                         @if ($article->public_status === \App\Enums\Publicstatus::OPEN)
