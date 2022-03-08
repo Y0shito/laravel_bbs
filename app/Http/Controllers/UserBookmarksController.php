@@ -17,7 +17,10 @@ class UserBookmarksController extends Controller
         $user = User::where('id', $id)->withCount(['userFollowers' => function (Builder $query) {
             $query->where('user_id', Auth::id());
         }])->first();
-        $bookmarkedArticles = Article::whereIn('id', Bookmark::where('user_id', $id)->pluck('article_id'))->get();
+        $bookmarkedArticles = Article::whereIn('id', Bookmark::where('user_id', $id)->pluck('article_id'))
+            ->withCount(['bookmark' => function (Builder $query) {
+                $query->where('user_id', Auth::id());
+            }])->get();
         $isMyPage = (int)$id === Auth::id();
         return view('userbookmarks', compact('user', 'isMyPage'), ['articles' => $bookmarkedArticles]);
     }
