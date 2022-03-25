@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Kyslik\ColumnSortable\Sortable;
 
 class Article extends Model
@@ -44,5 +45,13 @@ class Article extends Model
     public function scopeOpenArticles($query)
     {
         $query->where('public_status', PublicStatus::OPEN);
+    }
+
+    public static function getArticles()
+    {
+        return self::openArticles()->with(['user', 'category'])
+            ->withCount(['bookmark' => function (Builder $query) {
+                $query->where('user_id', Auth::id());
+            }]);
     }
 }
