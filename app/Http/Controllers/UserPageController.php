@@ -19,15 +19,13 @@ class UserPageController extends Controller
 
         $isMyPage = $user->id === Auth::id();
 
-        $query = Article::where('user_id', $id)->with(['user', 'category'])
-            ->withCount(['bookmark' => function (Builder $query) {
-                $query->where('user_id', Auth::id());
-            }]);
-
         if ($isMyPage) {
-            $articles = $query->get();
+            $articles = Article::where('user_id', $id)->with(['user', 'category'])
+                ->withCount(['bookmark' => function (Builder $query) {
+                    $query->where('user_id', Auth::id());
+                }])->get();
         } else {
-            $articles = $query->openArticles()->get();
+            $articles = Article::getArticles()->where('user_id', $id)->get();
         }
 
         return view('userpage', compact('user', 'articles', 'isMyPage'));
