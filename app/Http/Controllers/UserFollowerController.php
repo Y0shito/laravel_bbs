@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -13,10 +12,7 @@ class UserFollowerController extends Controller
 {
     public function showFollowersPage($id)
     {
-        $user = User::with('userFollowers')
-            ->withCount(['userFollowers' => function (Builder $query) {
-                $query->where('user_id', Auth::id());
-            }])->find($id);
+        $user = User::getUserInfo($id);
 
         $isMyPage = (int)$id === Auth::id();
 

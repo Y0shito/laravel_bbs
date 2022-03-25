@@ -15,9 +15,7 @@ class UserPageController extends Controller
 {
     public function showUserpage($id)
     {
-        $user = User::where('id', $id)->withCount(['userFollowers' => function (Builder $query) {
-            $query->where('user_id', Auth::id());
-        }])->first();
+        $user = User::getUserInfo($id);
 
         $isMyPage = $user->id === Auth::id();
 

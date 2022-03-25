@@ -8,7 +8,6 @@ use App\Http\Requests\SettingRequest;
 use App\Models\User;
 use App\Traits\Spaceremoval;
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -21,10 +20,7 @@ class UserSettingController extends Controller
         $isMyPage = (int)$id === Auth::id();
 
         if ($isMyPage) {
-            $user = User::where('id', $id)->withCount(['userFollowers' => function (Builder $query) {
-                $query->where('user_id', Auth::id());
-            }])->first();
-
+            $user = User::getUserInfo($id);
             return view('settings', compact('user', 'isMyPage'));
         }
         return back();
