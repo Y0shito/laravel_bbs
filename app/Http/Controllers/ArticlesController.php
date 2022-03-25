@@ -6,17 +6,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
     public function showArticles($id)
     {
         try {
-            $article = Article::openArticles()->withCount(['bookmark' => function (Builder $query) {
-                $query->where('user_id', Auth::id());
-            }])->find($id);
+            $article = Article::getArticles()->find($id);
             $article->timestamps = false;
             $article->increment('views');
 
