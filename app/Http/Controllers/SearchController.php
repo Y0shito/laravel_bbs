@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
     public function showSearch(Request $request)
     {
-        $query = Article::openArticles();
+        $query = Article::getArticles();
         $search = $request->search;
         $category = (int) ($request->category);
 
@@ -37,9 +35,7 @@ class SearchController extends Controller
             }
         }
 
-        $articles = $query->with(['user', 'category'])->withCount(['bookmark' => function (Builder $query) {
-            $query->where('user_id', Auth::id());
-        }])->sortable()->paginate(5);
+        $articles = $query->sortable()->paginate(5);
 
         return view('search', ['words' => $search, 'articles' => $articles, 'category' => $category]);
     }
