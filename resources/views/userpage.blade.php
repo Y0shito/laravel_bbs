@@ -2,7 +2,7 @@
 
 @section('title', "{$user->name}のページ")
 @section('content')
-    @include('components.usernavbar', compact(['user','isMyPage']))
+    @include('components.usernavbar', compact(['user', 'isMyPage']))
 
     <section class="text-gray-600 body-font overflow-hidden">
         <div class="container px-5 py-8 mx-auto">
@@ -91,6 +91,7 @@
                                             class="text-white bg-blue-500 hover:bg-blue-400 border-0 px-3 py-1 mt-1 rounded">編集</button>
                                         <button value="{{ $article->id }}" name="id"
                                             formaction="{{ route('articleDelete') }}"
+                                            onclick="articleDelete(); return false;"
                                             class="text-white bg-red-600 hover:bg-red-400 border-0 px-3 py-1 mt-1 rounded">削除</button>
                                     </form>
                                 @else
@@ -107,4 +108,5 @@
             </div>
         </div>
     </section>
+    <script src="{{ asset('/js/userpage.js') }}"></script>
 @endsection
