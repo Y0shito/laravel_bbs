@@ -16,7 +16,7 @@ class Article extends Model
 {
     use HasFactory, SoftDeletes, Sortable;
 
-    protected $fillable = ['user_id', 'title', 'body', 'public_status', 'category'];
+    protected $fillable = ['user_id', 'title', 'body', 'public_status', 'category_id'];
     protected $dates = ['created_at', 'updated_at'];
     public $sortable = ['title', 'views', 'bookmarks', 'created_at'];
 

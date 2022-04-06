@@ -17,7 +17,7 @@
                 <div class="flex justify-center">
                     {{ Form::select(
                         'category',
-                        \App\Models\Category::select('id', 'category_name')->get()->pluck('category_name', 'id')->prepend('選択してください', ''),
+                        \App\Models\Category::select('id', 'category_name')->get()->pluck('category_name', 'id'),
                         null,
                     ) }}
                 </div>
@@ -29,5 +29,6 @@
                 </div>
             </div>
         </form>
+        <script src="{{ asset('/js/preview.js') }}"></script>
     </section>
 @endsection

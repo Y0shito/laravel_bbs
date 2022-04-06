@@ -23,10 +23,9 @@ class ArticlePreviewController extends Controller
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::OPEN,
-                    'category_id' => (int) ($request->category),
+                    'category_id' => (int)$request->category,
                 ]
             );
-
             DB::commit();
             $request->session()->forget(['title', 'body']);
             return redirect()->route('articles', ['id' => $article->id]);
@@ -46,7 +45,7 @@ class ArticlePreviewController extends Controller
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::CLOSE,
-                    'category_id' => (int) ($request->category),
+                    'category_id' => (int) $request->category,
                 ]
             );
             DB::commit();
