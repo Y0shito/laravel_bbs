@@ -3,7 +3,7 @@
 @section('title', 'プレビュー')
 @section('content')
     <section class="text-gray-600 body-font">
-        <form method="POST">
+        <form method="POST" onsubmit="submitted=true; this.querySelector('#send').disabled=true;">
             @csrf
             <div class="container px-5 py-24 mx-auto">
                 <div class="text-left mb-20">
@@ -22,13 +22,13 @@
                     ) }}
                 </div>
                 <div class="p-2 w-full flex align-center">
-                    <button formaction="{{ route('draft') }}"
+                    <button formaction="{{ route('draft') }}" id="draft"
                         class="mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">下書き保存</button>
-                    <button formaction="{{ route('completion') }}"
+                    <button formaction="{{ route('completion') }}" id="send"
                         class="mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">公開する</button>
                 </div>
             </div>
         </form>
-        <script src="{{ asset('/js/preview.js') }}"></script>
+        {{-- <script src="{{ asset('/js/preview.js') }}"></script> --}}
     </section>
 @endsection
