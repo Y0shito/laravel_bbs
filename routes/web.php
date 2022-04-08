@@ -56,7 +56,8 @@ Route::get('search', [SearchController::class, 'showSearch'])->name('search');
 Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     //新規作成周り
     route::get('create', [ArticleCreateController::class, 'showArticleCreate'])->name('create');
-    route::post('preview', [ArticleCreateController::class, 'previewFromCreate'])->name('preview');
+    route::post('toPreview', [ArticleCreateController::class, 'previewFromCreate'])->name('toPreview');
+    route::get('preview', [ArticlePreviewController::class, 'showPreviewPage'])->name('preview');
     route::post('draft', [ArticlePreviewController::class, 'draft'])->name('draft');
     route::post('completion', [ArticlePreviewController::class, 'completion'])->name('completion');
 

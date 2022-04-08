@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\DB;
 
 class ArticlePreviewController extends Controller
 {
+    public function showPreviewPage()
+    {
+        if (session()->missing(['title', 'body'])) {
+            return redirect()->route('index');
+        }
+
+        return view('article.preview');
+    }
+
     public function completion(Request $request)
     {
         DB::beginTransaction();
