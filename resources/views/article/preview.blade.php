@@ -3,7 +3,7 @@
 @section('title', 'プレビュー')
 @section('content')
     <section class="text-gray-600 body-font">
-        <form method="POST" onsubmit="submitted=true; this.querySelectorAll('button').forEach(x => x.disabled = true);">
+        <form method="POST" onsubmit="send()">
             @csrf
             <div class="container px-5 py-24 mx-auto">
                 <div class="text-left mb-20">
@@ -29,6 +29,12 @@
                 </div>
             </div>
         </form>
-        {{-- <script src="{{ asset('/js/preview.js') }}"></script> --}}
+        <script>
+            'use strict';
+            const send = () => {
+                document.querySelectorAll('button').forEach(x => x.disabled = true);
+                submitted = true;
+            }
+        </script>
     </section>
 @endsection
