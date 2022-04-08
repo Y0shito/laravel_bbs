@@ -108,5 +108,14 @@
             </div>
         </div>
     </section>
-    <script src="{{ asset('/js/userpage.js') }}"></script>
+    <script>
+        'use strict';
+        const articleDelete = () => {
+            if (window.confirm('本当に削除しますか？')) {
+                document.articleDelete.submit();
+            } else {
+                return false;
+            }
+        }
+    </script>
 @endsection
