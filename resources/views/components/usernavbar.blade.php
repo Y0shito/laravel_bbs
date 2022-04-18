@@ -24,7 +24,7 @@
                     class="{{ \Route::is('userSettings') ? 'text-white bg-gray-600' : 'text-gray-900 hover:bg-gray-200' }} border-0 py-1 px-3 rounded mr-1">設定</a>
             @endif
         </nav>
-        @isset($user->url)
+        @if (!empty($user->url))
             <a href="{{ $user->url }}" class="mr-4 text-gray-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
@@ -32,7 +32,7 @@
                         clip-rule="evenodd" />
                 </svg>
             </a>
-        @endisset
+        @endif
         <a href="https://twitter.com/intent/user?user_id={{ $user->twitter_id }}" class="mr-4 text-gray-500">
             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 class="w-5 h-5" viewBox="0 0 24 24">
@@ -59,4 +59,9 @@
             </div>
         @endif
     </div>
+    @if (!empty($user->introduction))
+        <div class="container mx-auto bg-gray-100 text-gray-700 p-4 rounded">
+            <p>{{ $user->introduction }}</p>
+        </div>
+    @endif
 </div>
