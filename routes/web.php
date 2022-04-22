@@ -88,13 +88,12 @@ route::get('user/{id}', [UserPageController::class, 'showUserpage'])->name('user
 route::get('user/{id}/bookmarks', [UserBookmarksController::class, 'showUserBookmarks'])->name('userBookmarks');
 route::get('user/{id}/followings', [UserFollowingController::class, 'showFollowingPage'])->name('userFollowing');
 route::get('user/{id}/followers', [UserFollowerController::class, 'showFollowersPage'])->name('userFollowers');
-route::get('user/{id}/settings', [UserSettingController::class, 'showSettings'])->name('userSettings');
-route::post('user/{id}/settings', [UserSettingController::class, 'updateSettings'])->name('updateSettings');
+route::get('user/{id}/settings', [UserSettingController::class, 'showSettings'])->middleware('auth')->name('userSettings');
+route::post('user/{id}/settings', [UserSettingController::class, 'updateSettings'])->middleware('auth')->name('updateSettings');
 
 route::post('status-open', [UserPageController::class, 'statusOpen'])->name('articleOpen');
 route::post('status-close', [UserPageController::class, 'statusClose'])->name('articleClose');
 route::post('article-delete', [UserPageController::class, 'articleDelete'])->name('articleDelete');
 
-route::post('follow', [FollowController::class, 'follow'])->name('follow');
-route::post('unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
-//後でグループ化してmiddlewareのauth通す
+route::post('follow', [FollowController::class, 'follow'])->middleware('auth')->name('follow');
+route::post('unfollow', [FollowController::class, 'unfollow'])->middleware('auth')->name('unfollow');
