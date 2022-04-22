@@ -2,7 +2,7 @@
 
 @section('settings', "{$user->name}の設定")
 @section('content')
-    @include('components.usernavbar', compact(['user','isMyPage']))
+    @include('components.usernavbar', compact(['user', 'isMyPage']))
 
     <form method="POST" action="{{ route('updateSettings', ['id' => $user->id]) }}">
         @csrf
@@ -44,4 +44,23 @@
             </div>
         </section>
     </form>
+    <div class="p-2 w-full flex align-center">
+        <form method="POST" action="{{ route('userDelete') }}">
+            @csrf
+            <button
+                class="mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"
+                value="{{ Auth::id() }}" name="id" onclick="userDelete(); return false;">退会</button>
+        </form>
+    </div>
+
+    <script>
+        'use strict';
+        const userDelete = () => {
+            if (window.confirm('本当に退会しますか？\r\n退会すると再びログイン出来なくなります。')) {
+                document.userDelete.submit();
+            } else {
+                return false;
+            }
+        }
+    </script>
 @endsection

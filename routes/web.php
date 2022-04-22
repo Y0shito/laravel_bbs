@@ -47,6 +47,8 @@ Route::get('twitter-login', [UserController::class, 'login'])->name('twitter-log
 Route::get('callback', [UserController::class, 'callback']);
 Route::get('twitter-logout', [UserController::class, 'logout'])->name('twitter-logout');
 
+Route::post('user-delete', [UserController::class, 'userDelete'])->name('userDelete');
+
 Route::get('articles/{id}', [ArticlesController::class, 'showArticles'])->name('articles');
 
 Route::get('search', [SearchController::class, 'showSearch'])->name('search');
