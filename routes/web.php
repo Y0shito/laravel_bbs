@@ -10,8 +10,6 @@ use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\MypageBookmarksController;
-use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserBookmarksController;
 use App\Http\Controllers\UserController;
@@ -68,16 +66,6 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     route::post('edit-draft', [ArticleEditPreviewController::class, 'editedArticleDraft'])->name('editDraft');
     route::post('update', [ArticleEditPreviewController::class, 'articleUpdate'])->name('update');
 });
-
-// Route::group(['prefix' => 'mypage', 'middleware' => 'auth'], function () {
-//     route::get('/', [MypageController::class, 'showMypage'])->name('mypage');
-//     route::get('bookmarks', [MypageBookmarksController::class, 'showBookmarks'])->name('mypageBookmarks');
-
-//     route::post('status-open', [MypageController::class, 'statusOpen'])->name('articleOpen');
-//     route::post('status-close', [MypageController::class, 'statusClose'])->name('articleClose');
-//     route::post('article-edit', [MypageController::class, ''])->name('articleEdit');
-//     route::post('article-delete', [MypageController::class, 'articleDelete'])->name('articleDelete');
-// });
 
 Route::prefix('bookmark')->group(function () {
     route::post('add', [BookmarkController::class, 'add'])->name('bookmarkAdd');
