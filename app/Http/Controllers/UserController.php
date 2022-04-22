@@ -26,6 +26,12 @@ class UserController extends Controller
         $user = Socialite::driver('twitter')->user();
         $userId = $user->getId();
         $userName = $user->getName();
+        $loginUser = User::where('twitter_id', $userId)->first();
+
+        //削除済みユーザーがログインしたら
+        if (isset($loginUser->deleted_at)) {
+            throw new Exception();
+        }
 
         DB::beginTransaction();
         try {
@@ -38,8 +44,6 @@ class UserController extends Controller
                 true
             );
 
-            $loginUser = User::where('twitter_id', $userId)->first();
-
             if ($loginUser->name !== $userName) {
                 $loginUser->update(['name' => $userName]);
             }
@@ -47,8 +51,7 @@ class UserController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
-            $error = $e->getMessage();
-            dd($error);
+            abort(404);
         }
         return redirect()->route('index');
     }
