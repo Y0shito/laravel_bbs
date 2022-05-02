@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\DeletedUser;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -24,25 +25,26 @@ class UserController extends Controller
     public function callback()
     {
         $user = Socialite::driver('twitter')->user();
-        $userId = $user->getId();
+        $userTwitterId = $user->getId();
         $userName = $user->getName();
-        $loginUser = User::where('twitter_id', $userId)->first();
 
         //削除済みユーザーがログインしたら
-        if (isset($loginUser->deleted_at)) {
-            throw new Exception();
-        }
+        if (DeletedUser::where('twitter_id', $userTwitterId)->exists()) {
+            abort(403);
+        };
 
         DB::beginTransaction();
         try {
             Auth::login(
                 User::firstOrCreate([
-                    'twitter_id' => $userId
+                    'twitter_id' => $userTwitterId
                 ], [
                     'name' => $userName
                 ]),
                 true
             );
+
+            $loginUser = User::where('twitter_id', $userTwitterId)->first();
 
             if ($loginUser->name !== $userName) {
                 $loginUser->update(['name' => $userName]);
@@ -51,7 +53,7 @@ class UserController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
-            abort(404);
+            return back();
         }
         return redirect()->route('index');
     }
@@ -66,16 +68,24 @@ class UserController extends Controller
 
     public function userDelete(Request $request)
     {
+        $deletedUser = User::find($request->id);
         DB::beginTransaction();
 
         try {
-            User::destroy($request->id);
+            $insert = DeletedUser::create(
+                [
+                    'user_id' => $deletedUser->id,
+                    'name' => $deletedUser->name,
+                    'twitter_id' => $deletedUser->twitter_id,
+                ]
+            );
+
+            User::destroy($deletedUser->id);
             DB::commit();
             return redirect()->route('index');
         } catch (Exception $e) {
             DB::rollback();
-            $error = $e->getMessage();
-            dd($error);
+            return back();
         }
     }
 }

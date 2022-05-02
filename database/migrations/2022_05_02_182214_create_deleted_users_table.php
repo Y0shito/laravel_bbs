@@ -20,7 +20,7 @@ class CreateDeletedUsersTable extends Migration
             $table->bigInteger('user_id');
             $table->text('name', 255);
             $table->bigInteger('twitter_id');
-            $table->timestamp('deleted_date');
+            $table->timestamp('created_at');
         });
     }
 
