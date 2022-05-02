@@ -8,13 +8,12 @@ use App\Enums\PublicStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Kyslik\ColumnSortable\Sortable;
 
 class Article extends Model
 {
-    use HasFactory, SoftDeletes, Sortable;
+    use HasFactory, Sortable;
 
     protected $fillable = ['user_id', 'title', 'body', 'public_status', 'category_id'];
     protected $dates = ['created_at', 'updated_at'];
