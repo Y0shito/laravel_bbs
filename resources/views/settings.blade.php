@@ -45,11 +45,11 @@
         </section>
     </form>
     <div class="p-2 w-full flex align-center">
-        <form method="POST" action="{{ route('userDelete') }}">
+        <form method="GET" action="{{ route('userDelete') }}">
             @csrf
             <button
                 class="mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"
-                value="{{ Auth::id() }}" name="id" onclick="userDelete(); return false;">退会</button>
+                onclick="userDelete(); return false;">退会</button>
         </form>
     </div>
 

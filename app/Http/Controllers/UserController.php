@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Models\DeletedUser;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Facades\Socialite;
@@ -17,7 +16,7 @@ use Laravel\Socialite\Facades\Socialite;
 class UserController extends Controller
 {
     //Twitter認証
-    public function login()
+    public function login() //例外貼る
     {
         return Socialite::driver('twitter')->redirect();
     }
@@ -66,26 +65,21 @@ class UserController extends Controller
         return redirect()->route('index');
     }
 
-    public function userDelete(Request $request)
+    public function userDelete() //authで取る
     {
-        $deletedUser = User::find($request->id);
+        $deletedUser = User::find(Auth::id());
         DB::beginTransaction();
 
-        try {
-            $insert = DeletedUser::create(
-                [
-                    'user_id' => $deletedUser->id,
-                    'name' => $deletedUser->name,
-                    'twitter_id' => $deletedUser->twitter_id,
-                ]
-            );
+        $insert = DeletedUser::create(
+            [
+                'user_id' => $deletedUser->id,
+                'name' => $deletedUser->name,
+                'twitter_id' => $deletedUser->twitter_id,
+            ]
+        );
 
-            User::destroy($deletedUser->id);
-            DB::commit();
-            return redirect()->route('index');
-        } catch (Exception $e) {
-            DB::rollback();
-            return back();
-        }
+        User::destroy($deletedUser->id);
+        DB::commit();
+        return redirect()->route('index');
     }
 }
