@@ -16,9 +16,13 @@ use Laravel\Socialite\Facades\Socialite;
 class UserController extends Controller
 {
     //Twitter認証
-    public function login() //例外貼る
+    public function login()
     {
-        return Socialite::driver('twitter')->redirect();
+        try {
+            return Socialite::driver('twitter')->redirect();
+        } catch (Exception $e) {
+            return back();
+        }
     }
 
     public function callback()
