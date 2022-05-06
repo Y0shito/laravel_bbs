@@ -24,8 +24,9 @@ class ArticleEditController extends Controller
         $title = Spaceremoval::spaceRemoval($request->title);
         $body = Spaceremoval::spaceRemoval($request->body);
         $id = $request->id;
+        $category_id = $request->category_id;
 
-        session(compact('title', 'body', 'id'));
+        session(compact('title', 'body', 'id', 'category_id'));
 
         return view('article.edit-preview');
     }

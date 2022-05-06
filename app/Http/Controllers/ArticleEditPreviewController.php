@@ -24,11 +24,12 @@ class ArticleEditPreviewController extends Controller
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::OPEN,
+                    'category_id' => $request->category,
                 ]
             );
 
             DB::commit();
-            $request->session()->forget(['title', 'body', 'id']);
+            $request->session()->forget(['title', 'body', 'id', 'category_id']);
         } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
@@ -52,10 +53,11 @@ class ArticleEditPreviewController extends Controller
                     'title' => session('title'),
                     'body' => session('body'),
                     'public_status' => PublicStatus::CLOSE,
+                    'category_id' => $request->category,
                 ]
             );
             DB::commit();
-            $request->session()->forget(['title', 'body', 'id']);
+            $request->session()->forget(['title', 'body', 'id', 'category_id']);
         } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
