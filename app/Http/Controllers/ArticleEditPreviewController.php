@@ -16,10 +16,10 @@ class ArticleEditPreviewController extends Controller
     public function articleUpdate(Request $request)
     {
         $rule = ['id' => session('id'), 'user_id' => Auth::id()];
-        $article_id = session('id');
         DB::beginTransaction();
         try {
-            $article = Article::where($rule)->update(
+            $article = Article::where($rule)->first();
+            $article->update(
                 [
                     'title' => session('title'),
                     'body' => session('body'),
@@ -29,13 +29,16 @@ class ArticleEditPreviewController extends Controller
 
             DB::commit();
             $request->session()->forget(['title', 'body', 'id']);
-            return redirect()->route('articles', ['id' => $article_id]);
         } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
             dd($error);
             return back();
         }
+
+        return redirect()
+            ->route('articles', ['id' => $article->id])
+            ->with(['class' => 'text-blue-500 body-font bg-blue-100 shadow-md', 'message' => "「{$article->title}」を更新、公開しました"]);
     }
 
     public function editedArticleDraft(Request $request)
@@ -43,7 +46,8 @@ class ArticleEditPreviewController extends Controller
         $rule = ['id' => session('id'), 'user_id' => Auth::id()];
         DB::beginTransaction();
         try {
-            $article = Article::where($rule)->update(
+            $article = Article::where($rule)->first();
+            $article->update(
                 [
                     'title' => session('title'),
                     'body' => session('body'),
@@ -52,12 +56,15 @@ class ArticleEditPreviewController extends Controller
             );
             DB::commit();
             $request->session()->forget(['title', 'body', 'id']);
-            return redirect()->route('userpage', ['id' => Auth::id()]);
         } catch (Exception $e) {
             DB::rollback();
             $error = $e->getMessage();
             dd($error);
             return back();
         }
+
+        return redirect()
+            ->route('userpage', ['id' => Auth::id()])
+            ->with(['class' => 'text-green-500 body-font bg-green-100 shadow-md', 'message' => "「{$article->title}」を更新し、下書きに保存しました"]);
     }
 }
