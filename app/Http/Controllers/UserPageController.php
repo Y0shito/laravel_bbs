@@ -33,19 +33,27 @@ class UserPageController extends Controller
 
     public function StatusOpen(Request $request)
     {
-        Article::find($request->id)->update(['public_status' => PublicStatus::OPEN]);
-        return back();
+        $article = Article::find($request->id);
+        $article->timestamps = false;
+        $article->update(['public_status' => PublicStatus::OPEN]);
+        return back()
+            ->with(['class' => 'text-blue-500 body-font bg-blue-100 shadow-md', 'message' => "「{$article->title}」を公開しました"]);
     }
 
     public function statusClose(Request $request)
     {
-        Article::find($request->id)->update(['public_status' => PublicStatus::CLOSE]);
-        return back();
+        $article = Article::find($request->id);
+        $article->timestamps = false;
+        $article->update(['public_status' => PublicStatus::CLOSE]);
+        return back()
+            ->with(['class' => 'text-gray-500 body-font bg-gray-100 shadow-md', 'message' => "「{$article->title}」を非公開にしました"]);
     }
 
     public function articleDelete(Request $request)
     {
-        Article::find($request->id)->delete();
-        return back();
+        $article = Article::find($request->id);
+        $article->delete();
+        return back()
+            ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "「{$article->title}」を削除しました"]);
     }
 }

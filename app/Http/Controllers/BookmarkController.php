@@ -37,7 +37,7 @@ class BookmarkController extends Controller
             $error = $e->getMessage();
             dd($error);
         }
-        return back();
+        return back()->with(['class' => 'text-blue-500 body-font bg-blue-100 shadow-md', 'message' => "「{$article->title}」をブックマークしました"]);
     }
 
     public function remove(Request $request)
@@ -63,6 +63,6 @@ class BookmarkController extends Controller
             $error = $e->getMessage();
             dd($error);
         }
-        return back();
+        return back()->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "「{$article->title}」をブックマークから外しました"]);
     }
 }

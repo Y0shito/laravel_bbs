@@ -37,11 +37,14 @@ class ArticlePreviewController extends Controller
             );
             DB::commit();
             $request->session()->forget(['title', 'body']);
-            return redirect()->route('articles', ['id' => $article->id]);
         } catch (Exception $e) {
             DB::rollback();
             return back();
         }
+
+        return redirect()
+            ->route('articles', ['id' => $article->id])
+            ->with(['class' => 'text-blue-500 body-font bg-blue-100 shadow-md', 'message' => "「{$article->title}」を公開しました"]);
     }
 
     public function draft(Request $request)
@@ -59,10 +62,13 @@ class ArticlePreviewController extends Controller
             );
             DB::commit();
             $request->session()->forget(['title', 'body']);
-            return redirect()->route('userpage', ['id' => Auth::id()]);
         } catch (Exception $e) {
             DB::rollback();
             return back();
         }
+
+        return redirect()
+            ->route('userpage', ['id' => Auth::id()])
+            ->with(['class' => 'text-green-500 body-font bg-green-100 shadow-md', 'message' => "「{$article->title}」を下書きに保存しました"]);
     }
 }

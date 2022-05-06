@@ -17,7 +17,8 @@ class FollowController extends Controller
         $opponent = User::find($request->following_id);
         $opponent->increment('followers');
 
-        return back();
+        return back()
+        ->with(['class' => 'text-blue-500 body-font bg-blue-100 shadow-md', 'message' => "{$opponent->name}さんをフォローしました"]);
     }
 
     public function unFollow(Request $request)
@@ -29,6 +30,7 @@ class FollowController extends Controller
         $opponent = User::find($request->following_id);
         $opponent->decrement('followers');
 
-        return back();
+        return back()
+        ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "{$opponent->name}さんをフォローから外しました"]);
     }
 }

@@ -40,6 +40,14 @@
         </div>
     </header>
 
+    @if (session()->has('class'))
+        <div class="{{ session('class') }}">
+            <p class="container mx-auto px-5 py-4">
+                {{ session('message') }}
+            </p>
+        </div>
+    @endif
+
     @yield('content')
 
     <footer class="text-gray-600 body-font">
