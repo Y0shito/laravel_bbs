@@ -33,8 +33,10 @@
                 <div class="xl:w-2/4 lg:w-3/4 mx-auto mb-8">
                     <div class="flex justify-between">
                         <div>
-                            <span
-                                class="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pb-1">{{ $article->user->name }}</span>
+                            <a href="{{ route('userpage', ['id' => $article->user->id]) }}">
+                                <span
+                                    class="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pb-1 hover:underline">{{ $article->user->name }}</span>
+                            </a>
                         </div>
                         <div>
                             <span class="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pb-1">
