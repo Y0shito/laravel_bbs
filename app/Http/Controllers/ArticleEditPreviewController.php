@@ -18,7 +18,7 @@ class ArticleEditPreviewController extends Controller
         if (session()->missing(['title', 'body', 'id', 'category_id'])) {
             return redirect()
             ->route('index')
-            ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "不正なページ移動です"]);
+            ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => '不正なページ移動です']);
         }
 
         return view('article.edit-preview');
