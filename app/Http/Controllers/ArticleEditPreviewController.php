@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleEditPreviewController extends Controller
 {
+    public function showEditPreviewPage()
+    {
+        if (session()->missing(['title', 'body', 'id', 'category_id'])) {
+            return redirect()
+            ->route('index')
+            ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "不正なページ移動です"]);
+        }
+
+        return view('article.edit-preview');
+    }
+
     public function articleUpdate(Request $request)
     {
         $rule = ['id' => session('id'), 'user_id' => Auth::id()];
@@ -32,8 +43,6 @@ class ArticleEditPreviewController extends Controller
             $request->session()->forget(['title', 'body', 'id', 'category_id']);
         } catch (Exception $e) {
             DB::rollback();
-            $error = $e->getMessage();
-            dd($error);
             return back();
         }
 
@@ -60,8 +69,6 @@ class ArticleEditPreviewController extends Controller
             $request->session()->forget(['title', 'body', 'id', 'category_id']);
         } catch (Exception $e) {
             DB::rollback();
-            $error = $e->getMessage();
-            dd($error);
             return back();
         }
 

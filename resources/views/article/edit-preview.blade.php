@@ -34,13 +34,13 @@
                     </div>
                 </div>
             </form>
-            <script>
-                'use strict';
-                const send = () => {
-                    document.querySelectorAll('button').forEach(x => x.disabled = true);
-                    submitted = true;
-                }
-            </script>
         </div>
+        <script>
+            'use strict';
+            const send = () => {
+                document.querySelectorAll('button').forEach(x => x.disabled = true);
+                submitted = true;
+            }
+        </script>
     </section>
 @endsection

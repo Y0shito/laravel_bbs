@@ -64,7 +64,8 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth'], function () {
     //記事編集周り
     route::get('edit', [ArticleEditController::class, 'showArticleEdit']); //バリデート失敗時必要
     route::post('edit', [ArticleEditController::class, 'showArticleEdit'])->name('edit');
-    route::post('edit-preview', [ArticleEditController::class, 'previewFromEdit'])->name('editPreview');
+    route::post('edit-preview', [ArticleEditController::class, 'previewFromEdit'])->name('toEditPreview');
+    route::get('edit-preview', [ArticleEditPreviewController::class, 'showEditPreviewPage'])->name('editPreview');
     route::post('edit-draft', [ArticleEditPreviewController::class, 'editedArticleDraft'])->name('editDraft');
     route::post('update', [ArticleEditPreviewController::class, 'articleUpdate'])->name('update');
 });

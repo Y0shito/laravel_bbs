@@ -3,7 +3,7 @@
 @section('title', '記事編集')
 
 @section('content')
-    <form method="POST" action="{{ route('editPreview') }}">
+    <form method="POST" action="{{ route('toEditPreview') }}">
         @csrf
         <section class="text-gray-600 body-font relative">
             <div class="container px-5 py-8 mx-auto">
