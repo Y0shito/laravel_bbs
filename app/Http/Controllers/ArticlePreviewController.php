@@ -39,7 +39,8 @@ class ArticlePreviewController extends Controller
             $request->session()->forget(['title', 'body']);
         } catch (Exception $e) {
             DB::rollback();
-            return back();
+            return back()
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => '不正なページ移動です']);
         }
 
         return redirect()
@@ -64,7 +65,8 @@ class ArticlePreviewController extends Controller
             $request->session()->forget(['title', 'body']);
         } catch (Exception $e) {
             DB::rollback();
-            return back();
+            return back()
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => '不正なページ移動です']);
         }
 
         return redirect()
