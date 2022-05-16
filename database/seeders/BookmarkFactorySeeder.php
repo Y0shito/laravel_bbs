@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Bookmark;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class BookmarkFactorySeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([BookmarkFactorySeeder::class]);
+        Bookmark::factory()->count(50)->create();
     }
 }
