@@ -15,7 +15,9 @@
                     @include('components.article', compact(['article']))
                 @endforeach
             </div>
-            {{ $articles->appends(request()->query())->links() }}
+            <div class="mt-8">
+                {{ $articles->appends(request()->query())->links() }}
+            </div>
         </div>
     </section>
 @endsection

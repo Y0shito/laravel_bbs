@@ -12,7 +12,7 @@
                     {{ Form::select(
                         'category',
                         \App\Models\Category::select('id', 'category_name')->get()->pluck('category_name', 'id')->prepend('選択してください', ''),
-                        null,
+                        request()->category,
                     ) }}
                 </div>
                 <button

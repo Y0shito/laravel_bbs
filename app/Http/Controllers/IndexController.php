@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function showIndex()
     {
-        $articles = Article::getArticles()->sortable()->paginate(5);
+        $articles = Article::getArticles()->sortable()->paginate(15);
         return view('index', compact('articles'));
     }
 }

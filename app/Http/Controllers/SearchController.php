@@ -35,7 +35,7 @@ class SearchController extends Controller
             }
         }
 
-        $articles = $query->sortable()->paginate(5);
+        $articles = $query->sortable()->paginate(15);
 
         return view('search', ['words' => $search, 'articles' => $articles, 'category' => $category]);
     }
