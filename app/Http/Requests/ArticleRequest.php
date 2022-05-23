@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Rules\NotSpace;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleRequest extends FormRequest
@@ -26,8 +27,8 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'between:5,30'],
-            'body' => ['required', 'between:30,1000'],
+            'title' => ['required', 'between:5,30', 'string', new NotSpace],
+            'body' => ['required', 'between:30,1000', 'string', new NotSpace],
         ];
     }
 
