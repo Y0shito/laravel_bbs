@@ -16,6 +16,7 @@ class AddForignkeyForFollowUser extends Migration
     public function up()
     {
         Schema::table('follow_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->change();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

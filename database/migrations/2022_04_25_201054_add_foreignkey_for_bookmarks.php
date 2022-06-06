@@ -16,6 +16,7 @@ class AddForeignkeyForBookmarks extends Migration
     public function up()
     {
         Schema::table('bookmarks', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->change();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
