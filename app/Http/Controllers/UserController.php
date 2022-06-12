@@ -9,6 +9,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 //ユーザー管理、ログイン、ログアウト、退会処理
@@ -21,6 +22,7 @@ class UserController extends Controller
         try {
             return Socialite::driver('twitter')->redirect();
         } catch (Exception $e) {
+            Log::critical($e);
             return back();
         }
     }
