@@ -23,7 +23,8 @@ class UserController extends Controller
             return Socialite::driver('twitter')->redirect();
         } catch (Exception $e) {
             Log::critical($e);
-            return back();
+            return back()
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "ログイン出来ませんでした"]);
         }
     }
 
@@ -39,6 +40,7 @@ class UserController extends Controller
         };
 
         DB::beginTransaction();
+
         try {
             Auth::login(
                 User::firstOrCreate([
@@ -58,12 +60,12 @@ class UserController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
+            Log::critical($e);
             return back();
         }
+
         return redirect()->route('index');
     }
-
-    //firstOrCreate内に欲しいカラムいれればもっと登録出来る？（twitterのアバターなど）
 
     public function logout()
     {
@@ -71,21 +73,29 @@ class UserController extends Controller
         return redirect()->route('index');
     }
 
-    public function userDelete() //authで取る
+    public function userDelete()
     {
         $deletedUser = User::find(Auth::id());
         DB::beginTransaction();
 
-        $insert = DeletedUser::create(
-            [
-                'user_id' => $deletedUser->id,
-                'name' => $deletedUser->name,
-                'twitter_id' => $deletedUser->twitter_id,
-            ]
-        );
+        try {
+            $insert = DeletedUser::create(
+                [
+                    'user_id' => $deletedUser->id,
+                    'name' => $deletedUser->name,
+                    'twitter_id' => $deletedUser->twitter_id,
+                ]
+            );
 
-        User::destroy($deletedUser->id);
-        DB::commit();
+            User::destroy($deletedUser->id);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            Log::critical($e);
+            return back()
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "エラーのため、削除出来ませんでした"]);
+        }
+
         return redirect()->route('index');
     }
 }
