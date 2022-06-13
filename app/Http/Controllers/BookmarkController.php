@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BookmarkController extends Controller
 {
@@ -18,6 +19,7 @@ class BookmarkController extends Controller
     {
         $id = $request->article_id;
         DB::beginTransaction();
+
         try {
             $bookmark = Bookmark::create(
                 [
@@ -34,9 +36,9 @@ class BookmarkController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
-            $error = $e->getMessage();
-            dd($error);
+            Log::critical($e);
         }
+
         return back()->with(['class' => 'text-blue-500 body-font bg-blue-100 shadow-md', 'message' => "「{$article->title}」をブックマークしました"]);
     }
 
@@ -44,6 +46,7 @@ class BookmarkController extends Controller
     {
         $id = $request->article_id;
         DB::beginTransaction();
+
         try {
             $bookmark = Bookmark::where(
                 [
@@ -60,9 +63,9 @@ class BookmarkController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
-            $error = $e->getMessage();
-            dd($error);
+            Log::critical();
         }
+
         return back()->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "「{$article->title}」をブックマークから外しました"]);
     }
 }
