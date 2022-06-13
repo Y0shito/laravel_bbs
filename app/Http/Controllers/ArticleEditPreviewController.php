@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ArticleEditPreviewController extends Controller
 {
@@ -17,8 +18,8 @@ class ArticleEditPreviewController extends Controller
     {
         if (session()->missing(['title', 'body', 'id', 'category_id'])) {
             return redirect()
-            ->route('index')
-            ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => '不正なページ移動です']);
+                ->route('index')
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => '不正なページ移動です']);
         }
 
         return view('article.edit-preview');
@@ -28,6 +29,7 @@ class ArticleEditPreviewController extends Controller
     {
         $rule = ['id' => session('id'), 'user_id' => Auth::id()];
         DB::beginTransaction();
+
         try {
             $article = Article::where($rule)->first();
             $article->update(
@@ -43,7 +45,9 @@ class ArticleEditPreviewController extends Controller
             $request->session()->forget(['title', 'body', 'id', 'category_id']);
         } catch (Exception $e) {
             DB::rollback();
-            return back();
+            Log::critical($e);
+            return back()
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => 'エラーのため、保存出来ませんでした']);
         }
 
         return redirect()
@@ -55,6 +59,7 @@ class ArticleEditPreviewController extends Controller
     {
         $rule = ['id' => session('id'), 'user_id' => Auth::id()];
         DB::beginTransaction();
+
         try {
             $article = Article::where($rule)->first();
             $article->update(
@@ -65,11 +70,14 @@ class ArticleEditPreviewController extends Controller
                     'category_id' => $request->category,
                 ]
             );
+
             DB::commit();
             $request->session()->forget(['title', 'body', 'id', 'category_id']);
         } catch (Exception $e) {
             DB::rollback();
-            return back();
+            Log::critical($e);
+            return back()
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => 'エラーのため、保存出来ませんでした']);
         }
 
         return redirect()
