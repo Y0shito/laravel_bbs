@@ -24,7 +24,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             Log::critical($e);
             return back()
-                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "ログイン出来ませんでした"]);
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => 'ログイン出来ませんでした']);
         }
     }
 
@@ -93,7 +93,7 @@ class UserController extends Controller
             DB::rollback();
             Log::critical($e);
             return back()
-                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => "エラーのため、削除出来ませんでした"]);
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => 'エラーのため、削除出来ませんでした']);
         }
 
         return redirect()->route('index');
