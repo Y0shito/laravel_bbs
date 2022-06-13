@@ -10,13 +10,15 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ArticlePreviewController extends Controller
 {
     public function showPreviewPage()
     {
         if (session()->missing(['title', 'body'])) {
-            return redirect()->route('index');
+            return redirect()->route('index')
+                ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => '不正なページ移動です']);
         }
 
         return view('article.preview');
@@ -25,6 +27,7 @@ class ArticlePreviewController extends Controller
     public function completion(Request $request)
     {
         DB::beginTransaction();
+
         try {
             $article = Article::Create(
                 [
@@ -35,10 +38,12 @@ class ArticlePreviewController extends Controller
                     'category_id' => (int)$request->category,
                 ]
             );
+
             DB::commit();
             $request->session()->forget(['title', 'body']);
         } catch (Exception $e) {
             DB::rollback();
+            Log::critical($e);
             return back()
                 ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => '不正なページ移動です']);
         }
@@ -61,10 +66,12 @@ class ArticlePreviewController extends Controller
                     'category_id' => (int) $request->category,
                 ]
             );
+
             DB::commit();
             $request->session()->forget(['title', 'body']);
         } catch (Exception $e) {
             DB::rollback();
+            Log::critical($e);
             return back()
                 ->with(['class' => 'text-red-500 body-font bg-red-100 shadow-md', 'message' => '不正なページ移動です']);
         }
