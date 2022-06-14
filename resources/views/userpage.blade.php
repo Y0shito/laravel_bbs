@@ -78,7 +78,7 @@
                                 @elseif ($isMyPage)
                                     <form method="POST">
                                         @csrf
-                                        @if ($article->public_status === \App\Enums\Publicstatus::OPEN)
+                                        @if ($article->public_status === \app\Enums\Publicstatus::OPEN)
                                             <button value="{{ $article->id }}" name="id"
                                                 formaction="{{ route('articleClose') }}"
                                                 class="text-white bg-gray-600 hover:bg-gray-400 border-0 px-3 py-1 mt-1 rounded">非公開にする</button>
